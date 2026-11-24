@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vexiora — متجرك الأونلاين، بتصميم يليق بيك</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0b0620; --lapis:#4a24da; --violet:#7b2ff7; --magenta:#d63bb8;
+  --paper:#faf9ff; --card:#ffffff; --muted:#5c5675; --line:rgba(74,36,218,.12);
+  --grad:linear-gradient(120deg,#4a24da,#7b2ff7 55%,#d63bb8);
+  --r:22px; --shadow:0 30px 80px -30px rgba(21,12,56,.35);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:"IBM Plex Sans Arabic",system-ui,sans-serif;background:var(--paper);color:var(--ink);overflow-x:hidden;line-height:1.7}
+[lang-en]{display:none}
+html.en [lang-en]{display:initial}
+html.en [lang-ar]{display:none}
+html.en body{direction:ltr}
+.mono{font-family:"IBM Plex Mono",monospace}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+section{padding:110px 0;position:relative}
+h1,h2{font-weight:700;line-height:1.25;letter-spacing:-.5px}
+h2{font-size:clamp(30px,4.4vw,52px)}
+.sub{color:var(--muted);font-size:18px;max-width:640px}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--lapis);background:rgba(74,36,218,.08);border:1px solid var(--line);padding:7px 16px;border-radius:99px;margin-bottom:22px}
+.btn{display:inline-flex;align-items:center;gap:10px;font-weight:600;font-size:16px;padding:16px 34px;border-radius:16px;border:0;cursor:pointer;text-decoration:none;transition:.35s cubic-bezier(.2,.8,.2,1)}
+.btn-p{background:var(--grad);color:#fff;box-shadow:0 18px 45px -14px rgba(123,47,247,.55)}
+.btn-p:hover{transform:translateY(-3px);box-shadow:0 26px 60px -14px rgba(123,47,247,.7)}
+.btn-g{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.22)}
+.btn-g:hover{background:rgba(255,255,255,.16)}
+.btn-o{background:#fff;color:var(--lapis);border:1px solid var(--line)}
+.btn-o:hover{border-color:var(--lapis)}
+.rv{opacity:0;transform:translateY(36px);transition:opacity .9s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1)}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}.float{animation:none}.marq .track{animation:none}}
+nav{position:fixed;inset-inline:0;top:0;z-index:50;transition:.4s}
+nav .bar{max-width:1200px;margin:14px auto 0;padding:12px 22px;display:flex;align-items:center;gap:26px;border-radius:18px;background:rgba(11,6,32,.55);border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(18px);color:#fff}
+nav.scrolled .bar{background:rgba(11,6,32,.88);box-shadow:0 20px 50px -20px rgba(11,6,32,.6)}
+.logo{font-weight:700;font-size:21px;color:#fff;text-decoration:none;display:flex;align-items:center;gap:10px}
+.logo i{width:30px;height:30px;border-radius:9px;background:var(--grad);display:inline-block;box-shadow:0 6px 18px -4px rgba(123,47,247,.8)}
+nav .links{display:flex;gap:24px;margin-inline-start:auto;font-size:15px}
+nav .links a{color:rgba(255,255,255,.75);text-decoration:none;transition:.25s}
+nav .links a:hover{color:#fff}
+.langt{font:inherit;background:none;border:1px solid rgba(255,255,255,.25);color:#fff;padding:7px 15px;border-radius:99px;cursor:pointer;font-size:13.5px;transition:.25s}
+.langt:hover{background:rgba(255,255,255,.12)}
+nav .btn{padding:11px 24px;font-size:14.5px;border-radius:12px}
+.hero{min-height:100svh;padding:170px 0 90px;background:radial-gradient(1200px 700px at 85% -10%,rgba(123,47,247,.5),transparent 60%),radial-gradient(900px 600px at 5% 20%,rgba(214,59,184,.34),transparent 55%),radial-gradient(700px 700px at 55% 110%,rgba(74,36,218,.45),transparent 60%),var(--ink);color:#fff;display:flex;align-items:center}
+.hero .grid{display:grid;grid-template-columns:1.05fr .95fr;gap:60px;align-items:center;position:relative;z-index:2}
+.hero h1{font-size:clamp(40px,5.6vw,76px);color:#fff}
+.hero h1 em{font-style:normal;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .lead{color:rgba(255,255,255,.72);font-size:19px;max-width:520px;margin:22px 0 34px}
+.addrbox{display:flex;align-items:center;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);border-radius:16px;padding:8px;max-width:520px}
+.addrbox input{flex:1;background:none;border:0;outline:0;color:#fff;font:inherit;font-size:16px;padding:10px 14px;min-width:0}
+.addrbox input::placeholder{color:rgba(255,255,255,.4)}
+.addrbox .dom{color:rgba(255,255,255,.5);font-size:14px;padding-inline-end:10px;white-space:nowrap;direction:ltr}
+.addrbox .btn{padding:12px 26px;border-radius:11px;font-size:15px}
+.trial{margin-top:16px;font-size:13.5px;color:rgba(255,255,255,.55)}
+.stage{position:relative;display:flex;justify-content:center}
+.phone{width:300px;border-radius:44px;background:#0f0a26;border:10px solid #241a4d;box-shadow:0 60px 120px -40px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.08);overflow:hidden;transform:rotate(-3deg)}
+html.en .phone{transform:rotate(3deg)}
+.phone img{display:block;width:100%}
+.phead{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;color:#fff;font-size:12px;border-bottom:1px solid rgba(255,255,255,.06)}
+.pbody{padding:14px 16px;color:#fff}
+.pbody h3{font-size:21px;margin:8px 0 2px}
+.pbody p{font-size:11.5px;color:rgba(255,255,255,.55)}
+.pcta{display:inline-block;margin-top:12px;background:var(--grad);font-size:11px;padding:8px 18px;border-radius:99px;font-weight:600}
+.pprod{display:flex;gap:10px;margin-top:14px}
+.pprod>div{flex:1;background:rgba(255,255,255,.05);border-radius:12px;overflow:hidden;font-size:9.5px;padding-bottom:8px}
+.pprod img{width:100%;aspect-ratio:1;object-fit:cover}
+.pprod b{display:block;padding:6px 8px 0;font-weight:500}
+.pprod span{padding:0 8px;color:rgba(255,255,255,.5);font-family:"IBM Plex Mono"}
+.float{position:absolute;background:rgba(20,12,48,.88);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:14px 18px;color:#fff;font-size:13px;box-shadow:0 30px 60px -20px rgba(0,0,0,.6);animation:floaty 6s ease-in-out infinite;z-index:3}
+.float b{font-family:"IBM Plex Mono";color:#c9a0ff}
+.float small{display:block;color:rgba(255,255,255,.55);font-size:11px}
+.f1{top:12%;inset-inline-start:0}
+.f2{bottom:14%;inset-inline-end:0;animation-delay:-3s}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+.marq{padding:34px 0;background:var(--ink);border-top:1px solid rgba(255,255,255,.07);overflow:hidden}
+.marq .track{display:flex;gap:64px;width:max-content;animation:mar 28s linear infinite;color:rgba(255,255,255,.5);font-weight:600;font-size:17px;align-items:center}
+@keyframes mar{to{transform:translateX(-50%)}}
+html[dir=rtl] .marq .track{animation-name:marr}
+@keyframes marr{to{transform:translateX(50%)}}
+.marq span{white-space:nowrap}
+.cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:56px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:34px;box-shadow:0 14px 40px -24px rgba(21,12,56,.18);transition:.4s cubic-bezier(.2,.8,.2,1)}
+.card:hover{transform:translateY(-8px);box-shadow:var(--shadow)}
+.card h3{font-size:21px;margin:18px 0 8px}
+.card p{color:var(--muted);font-size:15px}
+.icn{width:52px;height:52px;border-radius:15px;background:var(--grad);display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 12px 26px -10px rgba(123,47,247,.6)}
+.mini{margin-top:20px;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:14px;font-size:12.5px}
+.mini .rowline{display:flex;justify-content:space-between;align-items:center;padding:5px 0;gap:8px}
+.mini .tag{font-size:10.5px;background:rgba(74,36,218,.1);color:var(--lapis);padding:3px 10px;border-radius:99px;font-weight:600;white-space:nowrap}
+.okdot{color:#16a34a;font-weight:600}
+/* journey */
+.journey{background:linear-gradient(180deg,var(--paper),#f1edff)}
+.steps4{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:60px;counter-reset:st}
+.stepc{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:30px 26px;position:relative;transition:.4s}
+.stepc:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+.stepc::before{counter-increment:st;content:counter(st);position:absolute;top:-16px;inset-inline-start:22px;width:34px;height:34px;border-radius:11px;background:var(--grad);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-family:"IBM Plex Mono";box-shadow:0 10px 22px -8px rgba(123,47,247,.7)}
+.stepc time{font-family:"IBM Plex Mono";font-size:12px;color:var(--lapis);font-weight:500}
+.stepc h3{font-size:17.5px;margin:8px 0 6px}
+.stepc p{color:var(--muted);font-size:13.5px}
+/* designs */
+.designs{background:var(--ink);color:#fff}
+.designs .sub{color:rgba(255,255,255,.6)}
+.designs .kicker{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.15);color:#c9a0ff}
+.dgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:56px}
+.dcard{border-radius:var(--r);overflow:hidden;background:#160d33;border:1px solid rgba(255,255,255,.09);transition:.45s cubic-bezier(.2,.8,.2,1)}
+.dcard:hover{transform:translateY(-8px) scale(1.015);box-shadow:0 40px 80px -30px rgba(0,0,0,.7);border-color:rgba(123,47,247,.5)}
+.dcard img{width:100%;aspect-ratio:16/10;object-fit:cover;display:block;transition:.6s}
+.dcard:hover img{transform:scale(1.06)}
+.dcard .meta{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;font-size:14px}
+.dcard .meta b{font-weight:600}
+.dcard .meta span{color:rgba(255,255,255,.5);font-size:12px}
+.dcard .open{color:#c9a0ff;font-size:12.5px;font-weight:600}
+.fine{margin-top:26px;font-size:13px;color:rgba(255,255,255,.4)}
+/* builder */
+.split{display:grid;grid-template-columns:1fr 1.1fr;gap:64px;align-items:center}
+.shot{border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--line);transition:.5s}
+.shot:hover{transform:scale(1.015)}
+.shot img{width:100%;display:block}
+.ticks{margin-top:30px;display:grid;gap:16px}
+.tick{display:flex;gap:14px;align-items:flex-start}
+.tick i{flex:none;width:26px;height:26px;border-radius:9px;background:rgba(74,36,218,.1);color:var(--lapis);display:flex;align-items:center;justify-content:center;font-style:normal;font-weight:700;font-size:13px;margin-top:2px}
+.tick b{display:block;font-size:16px}
+.tick p{color:var(--muted);font-size:14px}
+/* shipping */
+.zonewrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:64px;align-items:start}
+.ztable{margin-top:0;background:#fff;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:0 14px 40px -24px rgba(21,12,56,.18)}
+.ztable .zh,.ztable .zr{display:grid;grid-template-columns:1.4fr 1fr .7fr;padding:15px 24px;font-size:14.5px;align-items:center}
+.ztable .zh{background:var(--ink);color:#fff;font-weight:600;font-size:13px}
+.ztable .zr{border-top:1px solid var(--line)}
+.ztable .zr small{display:block;color:var(--muted);font-size:11.5px}
+.ztable .pr{font-family:"IBM Plex Mono";font-weight:500;text-align:end}
+/* pricing */
+.pricing{background:linear-gradient(180deg,#f1edff,var(--paper))}
+.pgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:56px}
+.plan{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:32px 26px;position:relative;transition:.4s;display:flex;flex-direction:column}
+.plan:hover{transform:translateY(-8px);box-shadow:var(--shadow)}
+.plan.rec{background:var(--ink);color:#fff;border-color:transparent;box-shadow:0 40px 90px -30px rgba(74,36,218,.5)}
+.plan .badge{position:absolute;top:-14px;inset-inline-start:22px;background:var(--grad);color:#fff;font-size:11.5px;font-weight:700;padding:6px 14px;border-radius:99px}
+.plan h3{font-size:19px}
+.plan .price{font-size:34px;font-weight:700;margin:12px 0 2px;font-family:"IBM Plex Mono"}
+.plan .price small{font-size:14px;font-weight:400;font-family:"IBM Plex Sans Arabic"}
+.plan .per{font-size:12.5px;color:var(--muted);margin-bottom:18px}
+.plan.rec .per{color:rgba(255,255,255,.55)}
+.plan ul{list-style:none;display:grid;gap:10px;font-size:13.5px;color:var(--muted);margin-bottom:26px}
+.plan.rec ul{color:rgba(255,255,255,.75)}
+.plan ul li{display:flex;gap:9px;align-items:flex-start}
+.plan ul li::before{content:"✓";color:var(--lapis);font-weight:700;flex:none}
+.plan.rec ul li::before{color:#c9a0ff}
+.plan .btn{margin-top:auto;justify-content:center;padding:13px}
+.pnote{margin-top:22px;text-align:center;font-size:13px;color:var(--muted)}
+/* faq */
+.faq .item{background:#fff;border:1px solid var(--line);border-radius:16px;margin-top:14px;overflow:hidden}
+.faq summary{cursor:pointer;padding:20px 26px;font-weight:600;font-size:16.5px;list-style:none;display:flex;justify-content:space-between;align-items:center}
+.faq summary::after{content:"+";color:var(--lapis);font-size:22px;transition:.3s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq .a{padding:0 26px 20px;color:var(--muted);font-size:15px}
+.faqwrap{max-width:760px;margin:56px auto 0}
+/* contact */
+.contact{background:var(--ink);color:#fff}
+.contact .sub{color:rgba(255,255,255,.6)}
+.cgrid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;margin-top:50px}
+.cways{display:grid;gap:16px}
+.cway{display:flex;align-items:center;gap:16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:18px 22px;text-decoration:none;color:#fff;transition:.3s}
+.cway:hover{background:rgba(255,255,255,.1);transform:translateX(-4px)}
+html.en .cway:hover{transform:translateX(4px)}
+.cway i{width:44px;height:44px;flex:none;border-radius:13px;background:var(--grad);display:flex;align-items:center;justify-content:center;font-style:normal;font-size:19px}
+.cway b{display:block;font-size:15px}
+.cway span{color:rgba(255,255,255,.55);font-size:13px;direction:ltr;display:inline-block}
+.cform{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:var(--r);padding:32px;display:grid;gap:14px}
+.cform input,.cform textarea{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:13px 16px;color:#fff;font:inherit;font-size:14.5px;outline:0;transition:.25s;width:100%}
+.cform input:focus,.cform textarea:focus{border-color:var(--violet)}
+.cform input::placeholder,.cform textarea::placeholder{color:rgba(255,255,255,.35)}
+.cform .fine{margin:0}
+/* closer */
+.closer{padding:130px 0;text-align:center;background:radial-gradient(800px 500px at 50% 0,rgba(123,47,247,.35),transparent 65%),var(--ink2,#150c38);color:#fff}
+.closer h2{font-size:clamp(32px,5vw,58px)}
+.closer .sub{margin:20px auto 38px;color:rgba(255,255,255,.65)}
+footer{background:#080418;color:rgba(255,255,255,.5);padding:44px 0;font-size:13.5px}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+footer a{color:rgba(255,255,255,.65);text-decoration:none;margin-inline-start:22px}
+footer a:hover{color:#fff}
+@media (max-width:1020px){
+ .hero .grid,.split,.zonewrap,.cgrid{grid-template-columns:1fr;gap:48px}
+ .cards3{grid-template-columns:1fr}
+ .steps4{grid-template-columns:repeat(2,1fr)}
+ .dgrid{grid-template-columns:repeat(2,1fr)}
+ .pgrid{grid-template-columns:repeat(2,1fr)}
+ nav .links{display:none}
+}
+@media (max-width:620px){
+ section{padding:76px 0}
+ .steps4,.dgrid,.pgrid{grid-template-columns:1fr}
+ .hero{padding-top:140px}
+ .float{display:none}
+ .addrbox{flex-wrap:wrap}
+ .addrbox .btn{width:100%;justify-content:center;margin-top:8px}
+ .ztable .zh,.ztable .zr{grid-template-columns:1.3fr .9fr .7fr;padding:13px 16px;font-size:13px}
+}
+</style>
+</head>
+<body>
+<nav id="nav"><div class="bar">
+  <a class="logo" href="#"><i></i>Vexiora</a>
+  <div class="links">
+    <a href="#pay"><span lang-ar>الدفع</span><span lang-en>Payments</span></a>
+    <a href="#how"><span lang-ar>إزاي بيشتغل</span><span lang-en>How it works</span></a>
+    <a href="#designs"><span lang-ar>التصميمات</span><span lang-en>Designs</span></a>
+    <a href="#ship"><span lang-ar>الشحن</span><span lang-en>Shipping</span></a>
+    <a href="#pricing"><span lang-ar>الباقات</span><span lang-en>Pricing</span></a>
+  </div>
+  <button class="langt" id="langt">English</button>
+  <a class="btn btn-p" href="onboarding.html"><span lang-ar>ابدأ مجاناً</span><span lang-en>Start free</span></a>
+</div></nav>
+
+<header class="hero" id="top">
+  <div class="wrap grid">
+    <div class="rv in">
+      <h1><span lang-ar>متجرك الأونلاين،<br>بتصميم <em>يليق بيك.</em></span><span lang-en>Your online store,<br>with a design <em>that looks like you.</em></span></h1>
+      <p class="lead"><span lang-ar>اختار تصميم، اكتب عنوان متجرك، وابدأ تستقبل طلبات. الدفع عند الاستلام والشحن لكل محافظة شغالين من أول يوم.</span><span lang-en>Pick a design, type your store address, and start taking orders. Cash on delivery and per-governorate shipping work from day one.</span></p>
+      <form class="addrbox" action="onboarding.html">
+        <input placeholder="your-store" aria-label="store address" dir="ltr" style="text-align:end">
+        <span class="dom">.vexiora.shop</span>
+        <button class="btn btn-p"><span lang-ar>جرّب دلوقتي</span><span lang-en>Try it now</span></button>
+      </form>
+      <p class="trial"><span lang-ar>14 يوم على باقة النمو كاملة، من غير بطاقة. حروف إنجليزي صغيرة وأرقام وشَرطة — تقدر تغيّره في الخطوة الجاية.</span><span lang-en>14 days on the full Growth plan, no card needed. Lowercase letters, digits and dashes — you can change it in the next step.</span></p>
+    </div>
+    <div class="stage rv in">
+      <div class="phone">
+        <div class="phead"><b>هُر للعطور</b><span style="color:rgba(255,255,255,.4)">· · ·</span></div>
+        <img src="assets/perfume.webp" alt="متجر بتصميم هُر للعطور">
+        <div class="pbody">
+          <h3>عطور تفضل معاك</h3>
+          <p>تركيبات شرقية بلمسة حديثة</p>
+          <span class="pcta">تسوّق دلوقتي</span>
+          <div class="pprod">
+            <div><img src="assets/perfume-1.webp" alt="روز بودر"><b>روز بودر</b><span>620 ج.م</span></div>
+            <div><img src="assets/perfume-2.webp" alt="مسك صافي"><b>مسك صافي</b><span>540 ج.م</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="float f1"><b>طلب جديد · 1,140 ج.م</b><small>سارة · الجيزة · الدفع عند الاستلام</small></div>
+      <div class="float f2"><span class="okdot">✓</span> <b>اتحصّل كاش</b><small>OP-1042 · قبل 10 دقايق</small></div>
+    </div>
+  </div>
+</header>
+
+<div class="marq" aria-hidden="true"><div class="track">
+  <span>بتربط حسابك في:</span><span>Paymob</span><span>Bosta</span><span>Aramex</span><span>Mylerz</span><span>DHL Express</span><span>FedEx</span>
+  <span>بتربط حسابك في:</span><span>Paymob</span><span>Bosta</span><span>Aramex</span><span>Mylerz</span><span>DHL Express</span><span>FedEx</span>
+</div></div>
+
+<section id="pay">
+  <div class="wrap">
+    <div class="rv"><span class="kicker"><span lang-ar>الدفع</span><span lang-en>Payments</span></span>
+    <h2><span lang-ar>كل اللي العميل المصري متعود عليه،<br>جاهز من أول يوم</span><span lang-en>Everything the Egyptian customer expects,<br>ready from day one</span></h2></div>
+    <div class="cards3">
+      <div class="card rv">
+        <div class="icn"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/><path d="M5.5 9.5h.01M18.5 14.5h.01"/></svg></div>
+        <h3><span lang-ar>الدفع عند الاستلام</span><span lang-en>Cash on delivery</span></h3>
+        <p><span lang-ar>كل طلب بيوصلك تأكّده قبل الشحن، باتصال أو واتساب للعميل من صفحة الطلب نفسها.</span><span lang-en>Every order reaches you to confirm before shipping — call or WhatsApp the customer right from the order page.</span></p>
+        <div class="mini">
+          <div class="rowline"><b class="mono">#1046</b><span class="tag">مثال</span></div>
+          <div class="rowline"><span>منى · الجيزة</span></div>
+          <div class="rowline"><span>روز بودر ×1 · 620 ج.م + شحن 60 ج.م</span></div>
+          <div class="rowline"><span class="okdot">✓ أكّد الطلب</span><span style="color:var(--lapis);font-weight:600">واتساب</span></div>
+        </div>
+      </div>
+      <div class="card rv">
+        <div class="icn"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M10 18.5h4"/><path d="M9 8l6 6M15 8l-6 6" opacity="0"/></svg></div>
+        <h3><span lang-ar>إنستاباي ومحافظ</span><span lang-en>InstaPay & wallets</span></h3>
+        <p><span lang-ar>العميل يرفع صورة التحويل، وانت تراجعها وتأكّدها بضغطة. مفيش فلوس بتعدي من غير علمك.</span><span lang-en>The customer uploads the transfer screenshot; you review and confirm in one tap. No money moves without you.</span></p>
+        <div class="mini">
+          <div class="rowline"><span>صورة تحويل · <b class="mono">910 ج.م</b></span><span class="okdot">✓ اتأكد</span></div>
+        </div>
+      </div>
+      <div class="card rv">
+        <div class="icn"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2.5"/><path d="M2 10h20"/><path d="M6 15h4"/></svg></div>
+        <h3><span lang-ar>كروت ومحافظ أونلاين</span><span lang-en>Cards & online wallets</span></h3>
+        <p><span lang-ar>اربط حساب Paymob بتاعك، والفلوس تنزل في حسابك انت على طول — من باقة المبتدئة.</span><span lang-en>Connect your own Paymob account and the money lands in your account — from the Starter plan.</span></p>
+        <div class="mini">
+          <div class="rowline"><span>Paymob</span><span class="okdot">✓ متوصل</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="journey" id="how">
+  <div class="wrap">
+    <div class="rv"><span class="kicker"><span lang-ar>إزاي بيشتغل</span><span lang-en>How it works</span></span>
+    <h2><span lang-ar>من رسايل الواتساب والكشكول،<br>لطلب واضح لحد ما الكاش يوصل إيدك</span><span lang-en>From WhatsApp messages and a notebook,<br>to a clear order until the cash is in your hand</span></h2></div>
+    <div class="steps4">
+      <div class="stepc rv"><time class="mono">10:42</time><h3><span lang-ar>الطلب يوصلك كامل</span><span lang-en>The order arrives complete</span></h3><p><span lang-ar>العميل بيختار محافظته، والمتجر بيتأكد إنك بتوصّل لها وبيحسب الشحن قبل ما الطلب يتعمل.</span><span lang-en>The customer picks their governorate; the store checks you deliver there and prices shipping before the order is placed.</span></p></div>
+      <div class="stepc rv"><time class="mono">10:43</time><h3><span lang-ar>تأكّد بضغطة</span><span lang-en>Confirm in one tap</span></h3><p><span lang-ar>اتصال أو واتساب للعميل من صفحة الطلب نفسها، من الموبايل وانت ماشي.</span><span lang-en>Call or WhatsApp the customer from the order page itself, on your phone, on the move.</span></p></div>
+      <div class="stepc rv"><time class="mono">بعد يوم</time><h3><span lang-ar>عميلك بيعرف لوحده</span><span lang-en>Your customer stays informed</span></h3><p><span lang-ar>إيميل بكل خطوة، وواتساب وSMS على باقة النمو. أسئلة «طلبي فين؟» بتقل.</span><span lang-en>An e-mail for every step, plus WhatsApp and SMS on the Growth plan. Fewer “where is my order?” messages.</span></p></div>
+      <div class="stepc rv"><time class="mono">OP-1042</time><h3><span lang-ar>اتسلّم واتحصّل كاش</span><span lang-en>Delivered, cash collected</span></h3><p><span lang-ar>التحصيل قدامك لحد ما الفلوس تبقى في إيدك. ولو عايز أونلاين: اربط Paymob من المبتدئة.</span><span lang-en>Collection stays visible until the money is in your hand. Prefer online? Connect Paymob from Starter.</span></p></div>
+    </div>
+  </div>
+<section class="designs" id="designs">
+  <div class="wrap">
+    <div class="rv"><span class="kicker"><span lang-ar>التصميمات</span><span lang-en>Designs</span></span>
+    <h2><span lang-ar>6 تصميمات حقيقية.<br>غيّر ألوانها وخطوطها وأقسامها من غير مبرمج.</span><span lang-en>6 real designs.<br>Change their colors, fonts and sections with no developer.</span></h2>
+    <p class="sub"><span lang-ar>افتح أي متجر واطلب زي أي عميل. المتاجر التجريبية بترجع لحالتها كل ليلة.</span><span lang-en>Open any store and order like any customer. Demo stores reset to their original state every night.</span></p></div>
+    <div class="dgrid">
+      <a class="dcard rv" href="#"><img src="assets/d-coffee.webp" alt="Beit Coffee"><div class="meta"><div><b>Beit Coffee</b> <span>· قهوة</span></div><span class="open">افتح المتجر ←</span></div></a>
+      <a class="dcard rv" href="#"><img src="assets/d-sahar.webp" alt="Atelier Sahar"><div class="meta"><div><b>Atelier Sahar</b> <span>· أزياء</span></div><span class="open">افتح المتجر ←</span></div></a>
+      <a class="dcard rv" href="#"><img src="assets/d-bloom.webp" alt="Bloom Skincare"><div class="meta"><div><b>Bloom Skincare</b> <span>· عناية بالبشرة</span></div><span class="open">افتح المتجر ←</span></div></a>
+      <a class="dcard rv" href="#"><img src="assets/d-pulse.webp" alt="Pulse Athletics"><div class="meta"><div><b>Pulse Athletics</b> <span>· ملابس رياضية</span></div><span class="open">افتح المتجر ←</span></div></a>
+      <a class="dcard rv" href="#"><img src="assets/d-noir.webp" alt="Noir Tech"><div class="meta"><div><b>Noir Tech</b> <span>· إلكترونيات</span></div><span class="open">افتح المتجر ←</span></div></a>
+      <a class="dcard rv" href="#"><img src="assets/d-lumen.webp" alt="Lumen Home"><div class="meta"><div><b>Lumen Home</b> <span>· ديكور البيت</span></div><span class="open">افتح المتجر ←</span></div></a>
+    </div>
+    <p class="fine"><span lang-ar>محتوى المتاجر التجريبية بالإنجليزي حالياً. الباقة المجانية فيها تصميمين من الستة.</span><span lang-en>Demo store content is in English for now. The Free plan includes two of the six designs.</span></p>
+  </div>
+</section>
+
+<section id="builder">
+  <div class="wrap split">
+    <div class="rv">
+      <span class="kicker"><span lang-ar>المحرّر</span><span lang-en>The builder</span></span>
+      <h2><span lang-ar>متجر شكله غالي،<br>من غير مصمم</span><span lang-en>A store that looks expensive,<br>no designer needed</span></h2>
+      <div class="ticks">
+        <div class="tick"><i>↺</i><div><b><span lang-ar>ارجع لأي نسخة</span><span lang-en>Roll back to any version</span></b><p><span lang-ar>كل نشر بيتحفظ، وترجع لأي نسخة في ثانية.</span><span lang-en>Every publish is saved; roll back in a second.</span></p></div></div>
+        <div class="tick"><i>◐</i><div><b><span lang-ar>ألوان مقروءة دايماً</span><span lang-en>Colors that always read well</span></b><p><span lang-ar>كل لون بيتراجع على التباين عشان النص يفضل واضح.</span><span lang-en>Every color is checked for contrast so text stays clear.</span></p></div></div>
+        <div class="tick"><i>✎</i><div><b><span lang-ar>تعديل سريع من الموبايل</span><span lang-en>Quick edits from your phone</span></b><p><span lang-ar>غيّر عنوان الواجهة وصورتها وانشر من موبايلك.</span><span lang-en>Change the hero title and image, and publish from your phone.</span></p></div></div>
+      </div>
+    </div>
+    <div class="shot rv"><img src="assets/builder.webp" alt="محرر المتجر في Vexiora: شجرة الأقسام، المعاينة، ولوحة إعدادات قسم المنتجات"></div>
+  </div>
+</section>
+
+<section id="ship" class="journey">
+  <div class="wrap zonewrap">
+    <div class="rv">
+      <span class="kicker"><span lang-ar>الشحن</span><span lang-en>Shipping</span></span>
+      <h2><span lang-ar>مصاريف الشحن صح،<br>لكل محافظة</span><span lang-en>Shipping priced right,<br>for every governorate</span></h2>
+      <p class="sub" style="margin-top:18px"><span lang-ar>مناطق مصر جاهزة: اكتب السعر ومدة التوصيل وبس. العميل بيشوف المصاريف في صفحة الدفع، والمتجر بيحسبها تاني عند تأكيد الطلب.</span><span lang-en>Egypt zones come ready: type the price and delivery time, done. The customer sees the fee at checkout, and the store recalculates it on confirmation.</span></p>
+      <div class="ticks">
+        <div class="tick"><i><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 7h12v9h-12z"/><path d="M13.5 10h4l3 3v3h-3"/><circle cx="5.5" cy="17.5" r="1.8"/><circle cx="16.8" cy="17.5" r="1.8"/></svg></i><div><b><span lang-ar>شركة الشحن بتاعتك</span><span lang-en>Your own carrier</span></b><p><span lang-ar>اربط حسابك في بوسطة أو أرامكس أو مايلرز أو DHL أو FedEx، من المبتدئة.</span><span lang-en>Connect your Bosta, Aramex, Mylerz, DHL or FedEx account, from Starter.</span></p></div></div>
+        <div class="tick"><i><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4"/><path d="M5 12v8h14v-8"/><path d="M12 8v12"/><path d="M12 8s-4 0-4-2.5S12 4 12 8zm0 0s4 0 4-2.5S12 4 12 8z"/></svg></i><div><b><span lang-ar>شحن مجاني فوق مبلغ</span><span lang-en>Free shipping over a threshold</span></b><p><span lang-ar>شريط في السلة بيقول للعميل فاضله قد إيه، من المبتدئة.</span><span lang-en>A cart bar tells the customer how much is left, from Starter.</span></p></div></div>
+      </div>
+    </div>
+    <div class="ztable rv">
+      <div class="zh"><span><span lang-ar>المنطقة</span><span lang-en>Zone</span></span><span><span lang-ar>التوصيل</span><span lang-en>Delivery</span></span><span style="text-align:end"><span lang-ar>السعر</span><span lang-en>Price</span></span></div>
+      <div class="zr"><span>القاهرة الكبرى<small>القاهرة، الجيزة، القليوبية</small></span><span>1 لـ 3 أيام</span><span class="pr">50 ج.م</span></div>
+      <div class="zr"><span>الإسكندرية<small>الإسكندرية</small></span><span>1 لـ 3 أيام</span><span class="pr">65 ج.م</span></div>
+      <div class="zr"><span>الدلتا<small>الشرقية، الدقهلية، البحيرة +4</small></span><span>2 لـ 4 أيام</span><span class="pr">75 ج.م</span></div>
+      <div class="zr"><span>القناة وسيناء<small>بورسعيد، الإسماعيلية، السويس +2</small></span><span>3 لـ 5 أيام</span><span class="pr">85 ج.م</span></div>
+      <div class="zr"><span>الصعيد<small>الفيوم، بني سويف، المنيا +5</small></span><span>3 لـ 6 أيام</span><span class="pr">95 ج.م</span></div>
+      <div class="zr"><span>باقي المحافظات<small>&nbsp;</small></span><span>—</span><span class="pr">90 ج.م</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="pricing" id="pricing">
+  <div class="wrap">
+    <div class="rv" style="text-align:center"><span class="kicker"><span lang-ar>الباقات</span><span lang-en>Pricing</span></span>
+    <h2><span lang-ar>اختار الباقة اللي على قدّك</span><span lang-en>Pick the plan that fits</span></h2>
+    <p class="sub" style="margin:14px auto 0"><span lang-ar>ابدأ على الباقة المجانية، أو جرّب باقة النمو كاملة 14 يوم. الدفع مقدّم لمدة 3 أو 6 أو 12 شهر.</span><span lang-en>Start on the Free plan, or try the full Growth plan for 14 days. Paid upfront for 3, 6 or 12 months.</span></p></div>
+    <div class="pgrid">
+      <div class="plan rv">
+        <h3><span lang-ar>المجانية</span><span lang-en>Free</span></h3>
+        <div class="price">0 <small><span lang-ar>ج.م</span><span lang-en>EGP</span></small></div>
+        <div class="per"><span lang-ar>للأبد — من غير بطاقة</span><span lang-en>Forever — no card</span></div>
+        <ul>
+          <li><span lang-ar>تصميمين من الستة</span><span lang-en>Two of the six designs</span></li>
+          <li><span lang-ar>الدفع عند الاستلام</span><span lang-en>Cash on delivery</span></li>
+          <li><span lang-ar>مناطق شحن مصر</span><span lang-en>Egypt shipping zones</span></li>
+        </ul>
+        <a class="btn btn-o" href="onboarding.html"><span lang-ar>ابدأ مجاناً</span><span lang-en>Start free</span></a>
+      </div>
+      <div class="plan rv">
+        <h3><span lang-ar>المبتدئة</span><span lang-en>Starter</span></h3>
+        <div class="price">≈700 <small><span lang-ar>ج.م/شهر</span><span lang-en>EGP/mo</span></small></div>
+        <div class="per"><span lang-ar>2,100 ج.م لمدة 3 شهور · توفّر لحد 1,400 على السنة</span><span lang-en>EGP 2,100 for 3 months · save up to 1,400 yearly</span></div>
+        <ul>
+          <li><span lang-ar>كل اللي في المجانية</span><span lang-en>Everything in Free</span></li>
+          <li><span lang-ar>حتى 250 منتج · 500 طلب/شهر</span><span lang-en>Up to 250 products · 500 orders/mo</span></li>
+          <li><span lang-ar>الدفع الإلكتروني (Paymob)</span><span lang-en>Online payments (Paymob)</span></li>
+          <li><span lang-ar>شركات الشحن والبوالص · حد الشحن المجاني</span><span lang-en>Carriers & waybills · free-shipping threshold</span></li>
+          <li><span lang-ar>التقييمات والأسئلة</span><span lang-en>Reviews & questions</span></li>
+        </ul>
+        <a class="btn btn-o" href="onboarding.html"><span lang-ar>ابدأ التجربة</span><span lang-en>Start trial</span></a>
+      </div>
+      <div class="plan rec rv">
+        <span class="badge"><span lang-ar>الأنسب لمعظم المتاجر</span><span lang-en>Best for most stores</span></span>
+        <h3><span lang-ar>النمو</span><span lang-en>Growth</span></h3>
+        <div class="price">≈1,000 <small><span lang-ar>ج.م/شهر</span><span lang-en>EGP/mo</span></small></div>
+        <div class="per"><span lang-ar>5,000 ج.م لمدة 6 شهور · توفّر لحد 2,000 على السنة</span><span lang-en>EGP 5,000 for 6 months · save up to 2,000 yearly</span></div>
+        <ul>
+          <li><span lang-ar>كل اللي في المبتدئة</span><span lang-en>Everything in Starter</span></li>
+          <li><span lang-ar>إشعارات واتساب وSMS للعميل</span><span lang-en>WhatsApp & SMS customer updates</span></li>
+          <li><span lang-ar>استرجاع السلات المهجورة</span><span lang-en>Abandoned-cart recovery</span></li>
+          <li><span lang-ar>أقسام محرّر إضافية + تتبع الحملات</span><span lang-en>Premium builder sections + attribution</span></li>
+        </ul>
+        <a class="btn btn-p" href="onboarding.html"><span lang-ar>جرّبها 14 يوم</span><span lang-en>Try it 14 days</span></a>
+      </div>
+      <div class="plan rv">
+        <h3><span lang-ar>الاحترافية</span><span lang-en>Pro</span></h3>
+        <div class="price">≈1,333 <small><span lang-ar>ج.م/شهر</span><span lang-en>EGP/mo</span></small></div>
+        <div class="per"><span lang-ar>8,000 ج.م لمدة 6 شهور · توفّر لحد 3,000 على السنة</span><span lang-en>EGP 8,000 for 6 months · save up to 3,000 yearly</span></div>
+        <ul>
+          <li><span lang-ar>منتجات وطلبات بلا حد</span><span lang-en>Unlimited products & orders</span></li>
+          <li><span lang-ar>إدارة العمليات</span><span lang-en>Operations suite</span></li>
+          <li><span lang-ar>مزوّد رسائل خاص بك</span><span lang-en>Your own messaging provider</span></li>
+          <li><span lang-ar>الأسباب الجذرية وخطط العمل</span><span lang-en>Root causes & action plans</span></li>
+        </ul>
+        <a class="btn btn-o" href="onboarding.html"><span lang-ar>كلم المبيعات</span><span lang-en>Talk to us</span></a>
+      </div>
+    </div>
+    <p class="pnote"><span lang-ar>كل الأسعار شاملة الضريبة. الدفع مقدّم للمدة كلها.</span><span lang-en>All prices include VAT. Paid upfront for the full period.</span></p>
+  </div>
+</section>
+
+<section class="faq" id="faq">
+  <div class="wrap">
+    <div class="rv" style="text-align:center"><h2><span lang-ar>أسئلة بتتسأل كتير</span><span lang-en>Frequently asked</span></h2></div>
+    <div class="faqwrap rv">
+      <details class="item"><summary><span lang-ar>محتاج خبرة برمجة؟</span><span lang-en>Do I need to code?</span></summary><p class="a"><span lang-ar>لا. كل حاجة من لوحة التحكم بالعربي: المنتجات، التصميم، الشحن، والطلبات.</span><span lang-en>No. Everything is in an Arabic dashboard: products, design, shipping and orders.</span></p></details>
+      <details class="item"><summary><span lang-ar>إنتو بتشحنوا؟</span><span lang-en>Do you ship for me?</span></summary><p class="a"><span lang-ar>لأ. إنت بتشحن بحسابك مع شركة الشحن اللي تختارها، وإحنا بنحسب المصاريف لكل محافظة ونبلّغ عميلك.</span><span lang-en>No. You ship with your own carrier account; we price it per governorate and keep your customer informed.</span></p></details>
+      <details class="item"><summary><span lang-ar>المتجر هيكون بالعربي؟</span><span lang-en>Will my store be in Arabic?</span></summary><p class="a"><span lang-ar>أيوه. المتجر بيبدأ بالعربي ومن اليمين للشمال، ولوحة التحكم عربي وإنجليزي.</span><span lang-en>Yes. Stores start in Arabic, right to left; the dashboard is Arabic and English.</span></p></details>
+      <details class="item"><summary><span lang-ar>التجربة المجانية فيها إيه؟</span><span lang-en>What's in the free trial?</span></summary><p class="a"><span lang-ar>باقة النمو كاملة لمدة 14 يوم.</span><span lang-en>The full Growth plan for 14 days.</span></p></details>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="rv"><span class="kicker"><span lang-ar>تواصل</span><span lang-en>Contact</span></span>
+    <h2><span lang-ar>تواصل معنا</span><span lang-en>Get in touch</span></h2>
+    <p class="sub"><span lang-ar>عندك سؤال عن Vexiora أو عايز تعرف هيناسب متجرك؟ ابعتلنا وهنرد عليك.</span><span lang-en>A question about Vexiora, or whether it fits your store? Send us a note and we'll get back to you.</span></p></div>
+    <div class="cgrid">
+      <div class="cways rv">
+        <a class="cway" href="https://wa.me/201037444724"><i><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3z"/><path d="M8.8 9.2c.6 2.6 3.4 5.4 6 6l1.4-1.4 2.2 1.2c-.6 1.5-1.9 2-3.6 1.4-3.9-1.3-6.9-4.3-8.2-8.2-.6-1.7-.1-3 1.4-3.6l1.2 2.2-1.4 1.4z" stroke-width="0" fill="currentColor"/></svg></i><div><b><span lang-ar>كلّمنا واتساب</span><span lang-en>WhatsApp us</span></b><span>+20 103 744 4724</span></div></a>
+        <a class="cway" href="tel:+201037444724"><i><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h4l2 5-2.5 1.5a12 12 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A17 17 0 0 1 3 5a2 2 0 0 1 2-2z"/></svg></i><div><b><span lang-ar>اتصل بينا</span><span lang-en>Call us</span></b><span>+20 103 744 4724</span></div></a>
+        <a class="cway" href="mailto:support@vexiora.shop"><i><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5" width="19" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></i><div><b><span lang-ar>ابعت إيميل</span><span lang-en>E-mail us</span></b><span>support@vexiora.shop</span></div></a>
+      </div>
+      <form class="cform rv" onsubmit="event.preventDefault();this.innerHTML='<p style=\"text-align:center;padding:30px 0\">✅ وصلت رسالتك — هنرد عليك في أقرب وقت.</p>'">
+        <input required minlength="2" placeholder="الاسم">
+        <input required placeholder="الموبايل أو الإيميل">
+        <input placeholder="اسم المتجر أو البيزنس (اختياري)">
+        <textarea rows="4" required minlength="10" placeholder="رسالتك"></textarea>
+        <button class="btn btn-p" style="justify-content:center"><span lang-ar>ابعت الرسالة</span><span lang-en>Send message</span></button>
+        <p class="fine" style="color:rgba(255,255,255,.4)"><span lang-ar>بنستخدم بياناتك علشان نرد عليك بس، ومش بنشاركها مع حد.</span><span lang-en>We only use your details to reply to you, and never share them.</span></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section class="closer">
+  <div class="wrap rv">
+    <h2><span lang-ar>جاهز تبيع زي ما عملاءك<br>بيحبوا يشتروا؟</span><span lang-en>Ready to sell the way<br>your customers like to buy?</span></h2>
+    <p class="sub" style="text-align:center"><span lang-ar>14 يوم على باقة النمو كاملة، من غير بطاقة.</span><span lang-en>14 days on the full Growth plan, no card needed.</span></p>
+    <a class="btn btn-p" href="onboarding.html" style="font-size:18px;padding:19px 44px"><span lang-ar>ابدأ متجرك دلوقتي</span><span lang-en>Start your store now</span></a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <a class="logo" href="#top" style="font-size:17px"><i></i>Vexiora</a>
+    <div>
+      <a href="#faq"><span lang-ar>الأسئلة</span><span lang-en>FAQ</span></a>
+      <a href="#contact"><span lang-ar>تواصل</span><span lang-en>Contact</span></a>
+      <a href="onboarding.html"><span lang-ar>التسجيل</span><span lang-en>Sign up</span></a>
+    </div>
+    <span>© 2026 Vexiora</span>
+  </div>
+</footer>
+
+<script>
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+const nav=document.getElementById('nav');
+addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>40),{passive:true});
+const t=document.getElementById('langt');
+t.onclick=()=>{const en=document.documentElement.classList.toggle('en');
+ document.documentElement.lang=en?'en':'ar';
+ document.documentElement.dir=en?'ltr':'rtl';
+ t.textContent=en?'العربية':'English';};
+</script>
+</body>
+</html>

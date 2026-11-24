@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vexiora — التسجيل وفتح المتجر (تصور جديد)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0b0620;--lapis:#4a24da;--violet:#7b2ff7;--magenta:#d63bb8;--paper:#faf9ff;--muted:#5c5675;--line:rgba(74,36,218,.12);--grad:linear-gradient(120deg,#4a24da,#7b2ff7 55%,#d63bb8)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"IBM Plex Sans Arabic",system-ui,sans-serif;background:var(--ink);color:#fff;line-height:1.7}
+.mono{font-family:"IBM Plex Mono",monospace}
+.wrap{max-width:1240px;margin:0 auto;padding:0 24px}
+header{padding:120px 0 60px;text-align:center;background:radial-gradient(900px 500px at 50% -10%,rgba(123,47,247,.4),transparent 60%)}
+h1{font-size:clamp(30px,4.5vw,54px);line-height:1.3}
+h1 em{font-style:normal;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:rgba(255,255,255,.6);max-width:640px;margin:18px auto 0;font-size:17px}
+.back{display:inline-block;margin-bottom:26px;color:rgba(255,255,255,.6);text-decoration:none;font-size:14px}
+.back:hover{color:#fff}
+.flow{display:flex;gap:34px;overflow-x:auto;padding:60px 24px 100px;scroll-snap-type:x mandatory}
+.flow::-webkit-scrollbar{height:8px}
+.flow::-webkit-scrollbar-thumb{background:rgba(255,255,255,.15);border-radius:99px}
+.screen{flex:0 0 330px;scroll-snap-align:center}
+.scnum{display:flex;align-items:center;gap:12px;margin-bottom:16px;color:rgba(255,255,255,.5);font-size:13px}
+.scnum b{width:30px;height:30px;border-radius:10px;background:var(--grad);color:#fff;display:flex;align-items:center;justify-content:center;font-family:"IBM Plex Mono";font-size:14px}
+.phone{background:#fff;color:var(--ink);border-radius:38px;border:9px solid #241a4d;overflow:hidden;min-height:640px;box-shadow:0 40px 90px -30px rgba(0,0,0,.7);display:flex;flex-direction:column}
+.pbar{display:flex;justify-content:space-between;align-items:center;padding:16px 22px 8px;font-size:12px;color:var(--muted)}
+.dots{display:flex;gap:6px}
+.dots i{width:22px;height:4px;border-radius:99px;background:var(--line)}
+.dots i.on{background:var(--grad)}
+.pbody{padding:14px 24px 26px;flex:1;display:flex;flex-direction:column}
+.pbody h2{font-size:22px;margin:6px 0 4px}
+.pbody .ps{color:var(--muted);font-size:13px;margin-bottom:20px}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:12.5px;font-weight:600;margin-bottom:6px}
+.field input,.field select{width:100%;border:1.5px solid #e4e0f5;border-radius:12px;padding:12px 14px;font:inherit;font-size:14px;background:#fff;outline:0}
+.field input:focus{border-color:var(--violet)}
+.field .hint{font-size:11px;color:var(--muted);margin-top:5px}
+.tel{display:flex;border:1.5px solid #e4e0f5;border-radius:12px;overflow:hidden}
+.tel span{padding:12px 10px;background:#f5f3ff;font-size:13px;color:var(--muted);direction:ltr}
+.tel input{border:0!important;border-radius:0!important}
+.meter{height:5px;border-radius:99px;background:#eee8ff;margin-top:8px;overflow:hidden}
+.meter i{display:block;height:100%;width:66%;background:var(--grad);border-radius:99px}
+.mtxt{font-size:11px;color:var(--lapis);font-weight:600;margin-top:4px}
+.check{display:flex;gap:10px;align-items:flex-start;font-size:12px;color:var(--muted)}
+.check input{margin-top:4px}
+.pbtn{margin-top:auto;background:var(--grad);color:#fff;border:0;border-radius:13px;padding:14px;font:inherit;font-weight:600;font-size:15px;box-shadow:0 14px 30px -12px rgba(123,47,247,.6);cursor:pointer}
+.pbtn.ghost{background:#f5f3ff;color:var(--lapis);box-shadow:none;margin-top:10px}
+.slug{display:flex;border:1.5px solid #16a34a;border-radius:12px;overflow:hidden;align-items:center}
+.slug input{border:0!important;border-radius:0!important}
+.slug span{padding:12px 10px;background:#f0fdf4;font-size:12px;color:#16a34a;direction:ltr}
+.avail{font-size:12px;color:#16a34a;font-weight:600;margin-top:6px}
+.alts{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+.alts b{font-size:11px;background:#f0fdf4;color:#16a34a;border:1px solid #bbf7d0;padding:5px 11px;border-radius:99px;font-weight:600}
+.chips{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.chips div{border:1.5px solid #e4e0f5;border-radius:12px;padding:11px 8px;text-align:center;font-size:12.5px;font-weight:500;cursor:pointer;transition:.2s}
+.chips div.on{border-color:var(--violet);background:#f5f3ff;color:var(--lapis);font-weight:600}
+.code{display:flex;gap:9px;justify-content:center;margin:26px 0 8px;direction:ltr}
+.code i{width:46px;height:56px;border:1.5px solid #e4e0f5;border-radius:13px;display:flex;align-items:center;justify-content:center;font-style:normal;font-size:23px;font-weight:600;font-family:"IBM Plex Mono"}
+.code i.on{border-color:var(--violet);background:#f5f3ff}
+.code i.cur{border-color:var(--violet);box-shadow:0 0 0 3px rgba(123,47,247,.15)}
+.resend{text-align:center;font-size:12.5px;color:var(--muted)}
+.resend b{color:var(--lapis)}
+.prog{display:grid;gap:0;margin-top:8px}
+.pstep{display:flex;gap:14px;align-items:flex-start;padding:13px 0}
+.pstep i{flex:none;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-style:normal;font-size:13px;border:2px solid #e4e0f5;color:transparent}
+.pstep.done i{background:#16a34a;border-color:#16a34a;color:#fff}
+.pstep.now i{border-color:var(--violet);color:var(--violet)}
+.pstep b{display:block;font-size:14px}
+.pstep p{font-size:12px;color:var(--muted)}
+.pstep.dim{opacity:.45}
+.spin{width:14px;height:14px;border:2.5px solid var(--violet);border-top-color:transparent;border-radius:50%;animation:sp 1s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.bigcheck{width:74px;height:74px;border-radius:50%;background:var(--grad);color:#fff;font-size:34px;display:flex;align-items:center;justify-content:center;margin:26px auto 14px;box-shadow:0 20px 45px -14px rgba(123,47,247,.7)}
+.urlchip{direction:ltr;text-align:center;background:#f5f3ff;border-radius:12px;padding:11px;font-family:"IBM Plex Mono";font-size:13px;color:var(--lapis);font-weight:500;margin:8px 0 20px}
+.todo{margin-top:6px;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.todo .th{background:#faf8ff;padding:10px 14px;font-size:12px;font-weight:700;color:var(--lapis)}
+.todo .ti{display:flex;gap:10px;align-items:center;padding:10px 14px;font-size:12.5px;border-top:1px solid var(--line);color:var(--muted)}
+.todo .ti i{width:17px;height:17px;border-radius:50%;border:1.5px solid #d9d3f0;flex:none;font-style:normal}
+footer{padding:50px 0 70px;text-align:center;color:rgba(255,255,255,.4);font-size:13px}
+@media (max-width:720px){.flow{padding:40px 18px 70px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="back" href="index.html">← رجوع للموقع</a>
+    <h1>من التسجيل لفتح المتجر،<br><em>في 4 خطوات تحس بيها إنك في إيد أمينة.</em></h1>
+    <p class="sub">تصور جديد لتجربة الـ onboarding: نفس الخطوات والبيانات اللي بتتجمع فعلا في النظام الحالي، بشكل أوضح وأهدى، وثقة أكبر في كل شاشة. (نموذج للعرض — مش متصل بباك إند)</p>
+  </div>
+</header>
+
+<div class="flow">
+
+  <div class="screen">
+    <div class="scnum"><b>1</b> حسابك — الاسم والإيميل والموبايل وكلمة السر</div>
+    <div class="phone">
+      <div class="pbar"><b>Vexiora</b><div class="dots"><i class="on"></i><i></i><i></i><i></i></div></div>
+      <div class="pbody">
+        <h2>أهلاً بيك</h2>
+        <p class="ps">دقيقة واحدة ونبدأ. بياناتك دي ليك انت، مش للمتجر.</p>
+        <div class="field"><label>الاسم بالكامل</label><input value="محمد محمود"></div>
+        <div class="field"><label>الإيميل</label><input value="mohamed@example.com" dir="ltr"><p class="hint">هنوصلك عليه كود التأكيد وفواتيرك.</p></div>
+        <div class="field"><label>الموبايل</label><div class="tel"><span>+20</span><input value="10 1234 5678"></div></div>
+        <div class="field"><label>كلمة السر</label><input type="password" value="••••••••••">
+          <div class="meter"><i></i></div><p class="mtxt">قوية ✓</p></div>
+        <label class="check"><input type="checkbox" checked> أوافق على شروط الاستخدام وسياسة الخصوصية</label>
+        <button class="pbtn" style="margin-top:18px">التالي ←</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="screen">
+    <div class="scnum"><b>2</b> متجرك — الاسم والعنوان ونوع النشاط</div>
+    <div class="phone">
+      <div class="pbar"><b>Vexiora</b><div class="dots"><i class="on"></i><i class="on"></i><i></i><i></i></div></div>
+      <div class="pbody">
+        <h2>سمّي متجرك</h2>
+        <p class="ps">ده اللي العملاء هيشوفوه. تقدر تغيّره بعدين.</p>
+        <div class="field"><label>اسم المتجر</label><input value="الصفوة جولد"></div>
+        <div class="field"><label>عنوان المتجر</label>
+          <div class="slug"><input value="elsafwa" dir="ltr"><span>.vexiora.shop</span></div>
+          <p class="avail">✓ العنوان ده متاح</p>
+          <div class="alts"><b>elsafwa-gold</b><b>elsafwa-store</b></div>
+        </div>
+        <div class="field"><label>بيعرفك تبيع إيه؟</label>
+          <div class="chips"><div>ملابس وأزياء</div><div class="on">مجوهرات ودهب</div><div>عطور وتجميل</div><div>أكل ومشروبات</div><div>إلكترونيات</div><div>حاجة تانية</div></div>
+          <p class="hint">بنجهّزلك المتجر بأقسام وصور مناسبة لمجالك.</p>
+        </div>
+        <button class="pbtn" style="margin-top:18px">اعمل المتجر ←</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="screen">
+    <div class="scnum"><b>3</b> تأكيد الإيميل — كود من 6 أرقام</div>
+    <div class="phone">
+      <div class="pbar"><b>Vexiora</b><div class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i></i></div></div>
+      <div class="pbody">
+        <h2>بص على إيميلك</h2>
+        <p class="ps">بعتنا كود من 6 أرقام على <b class="mono" dir="ltr">mohamed@example.com</b></p>
+        <div class="code"><i class="on">4</i><i class="on">8</i><i class="on">2</i><i class="cur"></i><i></i><i></i></div>
+        <p class="resend">مجالكش الكود؟ <b>ابعته تاني</b> (متاح بعد 00:24)</p>
+        <div class="mini" style="margin-top:auto;background:#faf8ff;border:1px solid var(--line);border-radius:14px;padding:14px;font-size:12px;color:var(--muted)">الكود صالح 10 دقايق، ومحاولاته محدودة عشان حدش يخمن.</div>
+        <button class="pbtn" style="margin-top:14px">تأكيد</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="screen">
+    <div class="scnum"><b>4</b> بنبني متجرك — تجهيز تلقائي مع تقدّم واضح</div>
+    <div class="phone">
+      <div class="pbar"><b>Vexiora</b><div class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div></div>
+      <div class="pbody">
+        <h2>بنجهّز متجرك</h2>
+        <p class="ps">ثواني وتلاقيه جاهز. ممكن تقفل الصفحة — هنبعتلك إيميل أول ما يخلص.</p>
+        <div class="prog">
+          <div class="pstep done"><i>✓</i><div><b>حسابك اتأكد</b><p>الإيميل والموبايل شغالين</p></div></div>
+          <div class="pstep done"><i>✓</i><div><b>المتجر اتعمل</b><p>قاعدة بيانات مستقلة لمتجرك بس</p></div></div>
+          <div class="pstep now"><i><span class="spin"></span></i><div><b>بنركّب التصميم والشحن</b><p>مناطق مصر جاهزة بأسعار تعدّلها</p></div></div>
+          <div class="pstep dim"><i></i><div><b>اللمسات الأخيرة</b><p>إيميلات العملاء بالعربي</p></div></div>
+        </div>
+        <div class="mini" style="margin-top:auto;background:#faf8ff;border:1px solid var(--line);border-radius:14px;padding:14px;font-size:12px;color:var(--muted)">عنوان متجرك هيبقى: <b class="mono" dir="ltr">elsafwa.vexiora.shop</b></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="screen">
+    <div class="scnum"><b>5</b> جاهز! — أول خطوات واضحة جوه لوحة التحكم</div>
+    <div class="phone">
+      <div class="pbar"><b>Vexiora</b><div class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div></div>
+      <div class="pbody" style="text-align:center">
+        <div class="bigcheck">✓</div>
+        <h2>متجرك اتفتح</h2>
+        <p class="ps">الصفوة جولد بقى أونلاين. فاضل 3 حاجات وتستقبل أول طلب.</p>
+        <div class="urlchip">elsafwa.vexiora.shop</div>
+        <div class="todo" style="text-align:start">
+          <div class="th">خطواتك الجاية</div>
+          <div class="ti"><i></i> ارفع لوجو المتجر</div>
+          <div class="ti"><i></i> ضيف أول منتج بصوره وسعره</div>
+          <div class="ti"><i></i> راجع أسعار الشحن لمحافظتك</div>
+        </div>
+        <button class="pbtn" style="margin-top:18px">افتح لوحة التحكم ←</button>
+        <button class="pbtn ghost">شوف متجرك زي ما العميل هيشوفه</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>تصور مقترح لتجربة التسجيل — Vexiora · 2026 · الشاشات دي نموذج للموافقة قبل التنفيذ على برانش جديد</footer>
+</body>
+</html>
