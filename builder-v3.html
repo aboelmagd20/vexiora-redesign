@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1440">
+<title>Vexiora — محرر الموقع (تطوير الشكل الحالي)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#eceef4; --panel:#ffffff; --panel2:#f7f8fb; --ink:#1c2333; --muted:#667085; --faint:#98a2b3;
+  --line:#e3e6ee; --line2:#eef0f5;
+  --navy:#171c33; --navy2:#1f2544; --navy3:#2a3054;
+  --blue:#2f6bff; --blue-soft:rgba(47,107,255,.1); --green:#12b76a;
+  --r:12px; --sh:0 1px 2px rgba(16,24,40,.06),0 8px 24px -12px rgba(16,24,40,.14);
+  --sh-lg:0 24px 64px -24px rgba(16,24,40,.3);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:#d9dce4}
+body{font-family:"IBM Plex Sans Arabic",system-ui,sans-serif;color:var(--ink);font-size:14px;line-height:1.6}
+.frame{width:1440px;margin:0 auto;min-height:900px;background:var(--bg);position:relative;box-shadow:0 0 0 1px #c6cad6,0 40px 120px -40px rgba(16,24,40,.45)}
+.screen{display:none;min-height:900px}
+.screen.on{display:block}
+button{font:inherit;cursor:pointer;border:0;background:none}
+/* top chrome (current builder style) */
+.etop{height:54px;background:var(--navy);color:#fff;display:flex;align-items:center;gap:10px;padding:0 16px;font-size:13px}
+.etop .ttl{font-weight:700;font-size:13.5px}
+.etop .tb{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:5px 12px;font-size:12.5px;color:#c9cfE6;color:#c9cfe6}
+.etop .tb:hover{background:rgba(255,255,255,.12)}
+.bpub{background:var(--blue);border:1px solid var(--blue);color:#fff;border-radius:8px;padding:6px 16px;font-size:12.5px;font-weight:700}
+.bpub:hover{background:#2458e0}
+.savedot{display:inline-flex;align-items:center;gap:6px;color:#8ee6bf;font-size:12.5px;font-weight:600}
+.savedot i{width:7px;height:7px;border-radius:50%;background:#34d399}
+.seg{display:flex;background:rgba(255,255,255,.07);border-radius:8px;padding:2px;gap:2px}
+.seg span{padding:3px 13px;border-radius:6px;font-size:12px;color:#8b93b8}
+.seg span.on{background:rgba(255,255,255,.14);color:#fff}
+.sp{flex:1}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:9px 18px;border-radius:9px;font-weight:600;font-size:13.5px;transition:.15s;border:1px solid transparent}
+.btn-p{background:var(--blue);color:#fff}.btn-p:hover{background:#2458e0}
+.btn-n{background:var(--navy);color:#fff}.btn-n:hover{background:#0f1430}
+.btn-o{background:var(--panel);border-color:var(--line);color:var(--ink)}.btn-o:hover{border-color:#c6ccda;background:#fafbfc}
+.btn-g{color:var(--muted);padding:9px 12px}.btn-g:hover{color:var(--ink);background:var(--line2);border-radius:9px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh)}
+.pad{padding:22px}
+.muted{color:var(--muted)}.faint{color:var(--faint)}.b{font-weight:700}.sb{font-weight:600}
+.pill{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;border-radius:99px;padding:2px 10px}
+.pill.g{background:rgba(18,183,106,.12);color:#0a8a50}.pill.y{background:#fef3c7;color:#92400e}.pill.n{background:var(--line2);color:var(--muted)}.pill.bl{background:var(--blue-soft);color:var(--blue)}
+/* owner portal shell (current style: light sidebar + navy header) */
+.dhead{height:58px;background:var(--navy);color:#fff;display:flex;align-items:center;gap:18px;padding:0 24px}
+.dhead .brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:16px}
+.dhead .brand i{width:26px;height:26px;border-radius:7px;background:var(--blue);display:inline-block}
+.dhead nav{display:flex;gap:4px;font-size:13.5px}
+.dhead nav a{color:#a9b0d0;text-decoration:none;padding:7px 13px;border-radius:8px;font-weight:500}
+.dhead nav a:hover{color:#fff;background:var(--navy3)}
+.dhead nav a.on{color:#fff;background:var(--navy3);box-shadow:inset 0 -2px 0 var(--blue)}
+.dbody{padding:26px 30px;display:flex;flex-direction:column;gap:20px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.stat{padding:18px 20px}
+.stat .k{font-size:12.5px;color:var(--muted);font-weight:500}
+.stat .v{font-size:26px;font-weight:700;margin-top:4px;letter-spacing:-.5px}
+.stat .d{font-size:12px;margin-top:2px}.stat .d.up{color:#0a8a50}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:right;color:var(--faint);font-weight:600;font-size:11.5px;padding:10px 16px;border-bottom:1px solid var(--line)}
+td{padding:12px 16px;border-bottom:1px solid var(--line2)}
+tr:last-child td{border-bottom:0}
+.av{width:30px;height:30px;border-radius:8px;display:inline-grid;place-items:center;font-weight:700;font-size:12px;color:#fff}
+/* editor body (current builder layout: inspector left, canvas center, tree+iconstrip right) */
+.ebody{display:flex;min-height:846px}
+.insp{width:300px;background:var(--panel);border-inline-end:1px solid var(--line);flex-shrink:0}
+.tabs{display:flex;border-bottom:1px solid var(--line)}
+.tabs span{flex:1;text-align:center;padding:11px 0;font-size:12.5px;font-weight:600;color:var(--muted);border-bottom:2px solid transparent;cursor:pointer}
+.tabs span.on{color:var(--blue);border-color:var(--blue)}
+.fld{padding:12px 16px;border-bottom:1px solid var(--line2)}
+.fld label{font-size:11.5px;color:var(--muted);font-weight:600;display:block;margin-bottom:5px}
+.inp{background:#f8f9fc;border:1px solid var(--line);border-radius:8px;padding:8px 11px;font-size:13px}
+.inp.focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(47,107,255,.12);background:#fff}
+.canvas{flex:1;background:var(--bg);padding:26px 34px;overflow:hidden;position:relative}
+.mbrowser{background:#fff;border-radius:12px;box-shadow:var(--sh-lg);overflow:hidden;border:1px solid var(--line)}
+.mb-bar{display:flex;align-items:center;gap:8px;background:#1c2333;padding:9px 14px;direction:ltr}
+.mb-bar .dot{width:9px;height:9px;border-radius:50%}
+.mb-url{flex:1;background:#2a3054;border-radius:6px;font-size:11px;color:#a9b0d0;padding:4px 12px;text-align:left}
+.selbox{outline:2px solid var(--blue);outline-offset:0;position:relative}
+.seltag{position:absolute;top:0;inset-inline-start:0;background:var(--blue);color:#fff;font-size:10.5px;font-weight:600;padding:2px 9px;border-radius:0 0 8px 0;z-index:3}
+.toast{position:absolute;bottom:22px;inset-inline:0;display:flex;justify-content:center;z-index:5}
+.toast div{background:var(--navy);color:#fff;font-size:12.5px;padding:9px 18px;border-radius:99px;box-shadow:var(--sh-lg)}
+.tree{width:270px;background:var(--panel2);border-inline-start:1px solid var(--line);flex-shrink:0;display:flex;flex-direction:column}
+.tree .hd{padding:13px 16px;border-bottom:1px solid var(--line);font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:space-between}
+.trow{display:flex;align-items:center;gap:9px;padding:10px 16px;border-bottom:1px solid var(--line2);font-size:13px;cursor:pointer}
+.trow:hover{background:#fff}
+.trow.on{background:var(--blue-soft);box-shadow:inset -2px 0 0 var(--blue)}
+.trow .grip{color:var(--faint);font-size:11px}
+.trow small{display:block;color:var(--faint);font-size:10.5px}
+.strip{width:52px;background:var(--panel2);border-inline-start:1px solid var(--line);flex-shrink:0;display:flex;flex-direction:column;align-items:center;padding-top:10px;gap:4px}
+.strip button{width:38px;height:38px;border-radius:9px;color:var(--muted);font-size:15px;display:grid;place-items:center}
+.strip button:hover{background:var(--line2)}
+.strip button.on{background:var(--blue-soft);color:var(--blue)}
+.strip button small{display:block;font-size:8.5px;margin-top:1px}
+/* library overlay */
+.overlay{position:absolute;inset:0;background:rgba(23,28,51,.45);display:flex;z-index:20}
+.libpanel{width:440px;background:var(--panel);height:100%;box-shadow:var(--sh-lg);display:flex;flex-direction:column;margin-inline-start:auto}
+.libpanel .hd{padding:18px 20px;border-bottom:1px solid var(--line)}
+.libcat{padding:8px 20px 4px;font-size:12px;font-weight:700;color:var(--muted);display:flex;justify-content:space-between;align-items:center}
+.libcat i{font-style:normal;background:var(--line2);color:var(--muted);border-radius:99px;font-size:10.5px;padding:1px 8px}
+.libgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:8px 20px 14px}
+.libcard{border:1px solid var(--line);border-radius:10px;padding:10px;cursor:pointer;transition:.15s;background:#fff}
+.libcard:hover{border-color:var(--blue);box-shadow:var(--sh)}
+.libcard .th{height:52px;border-radius:7px;margin-bottom:8px}
+.libcard b{font-size:12px;display:block}
+.libcard small{font-size:10.5px;color:var(--muted)}
+/* switcher */
+.switcher{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--navy);border-radius:99px;padding:6px;display:flex;gap:4px;z-index:99;box-shadow:var(--sh-lg)}
+.switcher button{color:#8b93b8;font-size:12px;padding:6px 14px;border-radius:99px;font-weight:600}
+.switcher button.on{background:var(--blue);color:#fff}
+/* templates */
+.tgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.tcard{border-radius:12px;overflow:hidden}
+.tcard .im{height:130px}
+.tcard .mt{padding:12px 14px;display:flex;justify-content:space-between;align-items:center}
+.tcard b{font-size:13.5px}.tcard small{color:var(--muted);font-size:11.5px}
+/* blocks */
+.blkgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:12px 16px}
+.blk{border:1px solid var(--line);border-radius:9px;padding:12px 8px;text-align:center;font-size:12px;font-weight:600;background:#fff;cursor:grab}
+.blk:hover{border-color:var(--blue)}
+.blk i{display:grid;place-items:center;width:24px;height:24px;margin:0 auto 5px;font-style:normal;background:var(--blue-soft);color:var(--blue);border-radius:6px;font-size:11px;font-weight:700}
+.drop{margin:24px;border:2px dashed #c4cbdd;border-radius:14px;padding:18px;background:#fbfbfe}
+.dz{background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:10px;position:relative;font-size:13px}
+.dz .mv{position:absolute;top:12px;inset-inline-end:12px;color:var(--faint);font-size:11px}
+</style>
+</head>
+<body>
+<div class="frame">
+<!-- ============ DASHBOARD ============ -->
+<div class="screen on" id="s-dash">
+  <div class="dhead">
+    <div class="brand"><i></i> Vexiora</div>
+    <nav>
+      <a class="on">الرئيسية</a><a>الطلبات</a><a>المنتجات</a><a>العملاء</a><a>التسويق</a>
+      <a onclick="go('s-editor')">محرر الموقع</a><a onclick="go('s-pages')">الصفحات</a><a onclick="go('s-tpl')">القوالب</a><a>الإعدادات</a>
+    </nav>
+    <div class="sp"></div>
+    <span style="font-size:12.5px;color:#a9b0d0">متجر بخة للمنسوجات · bakha.vexiora.shop</span>
+  </div>
+  <div class="dbody">
+    <div style="display:flex;align-items:center;gap:14px">
+      <div><div class="b" style="font-size:19px">صباح الخير، محمد</div><div class="muted" style="font-size:13px">آخر تحديث للموقع: منذ ساعتين</div></div>
+      <div class="sp"></div>
+      <button class="btn btn-o">زيارة المتجر ↗</button>
+      <button class="btn btn-p" onclick="go('s-editor')">افتح محرر الموقع</button>
+    </div>
+    <div class="grid4">
+      <div class="card stat"><div class="k">مبيعات اليوم</div><div class="v">4,820 ج.م</div><div class="d up">▲ 18% عن أمس</div></div>
+      <div class="card stat"><div class="k">الطلبات</div><div class="v">12</div><div class="d up">▲ 3 جديدة</div></div>
+      <div class="card stat"><div class="k">زيارات المتجر</div><div class="v">1,340</div><div class="d up">▲ 9% هذا الأسبوع</div></div>
+      <div class="card stat"><div class="k">متوسط السلة</div><div class="v">402 ج.م</div><div class="d muted">ثابت تقريبًا</div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1.6fr 1fr;gap:20px">
+      <div class="card">
+        <div class="pad" style="display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)">
+          <span class="b">أحدث الطلبات</span><button class="btn btn-g">كل الطلبات ←</button>
+        </div>
+        <table>
+          <tr><th>الطلب</th><th>العميل</th><th>الحالة</th><th>الإجمالي</th></tr>
+          <tr><td class="sb">#1043</td><td><span class="av" style="background:#7c8db0">س</span> سارة أحمد</td><td><span class="pill y">قيد التجهيز</span></td><td class="sb">640 ج.م</td></tr>
+          <tr><td class="sb">#1042</td><td><span class="av" style="background:#b08968">م</span> محمود علي</td><td><span class="pill g">تم الشحن</span></td><td class="sb">1,150 ج.م</td></tr>
+          <tr><td class="sb">#1041</td><td><span class="av" style="background:#5f8a7d">ن</span> نورهان سيد</td><td><span class="pill g">مكتمل</span></td><td class="sb">380 ج.م</td></tr>
+          <tr><td class="sb">#1040</td><td><span class="av" style="background:#8a7ca8">ك</span> كريم فتحي</td><td><span class="pill g">مكتمل</span></td><td class="sb">920 ج.م</td></tr>
+        </table>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:20px">
+        <div class="card pad" style="background:linear-gradient(135deg,#171c33,#2a3054);color:#fff;border:0">
+          <div class="b" style="font-size:15px;margin-bottom:6px">موقعك جاهز للتعديل</div>
+          <div style="color:#a9b0d0;font-size:13px;margin-bottom:14px">عدّل الأقسام، الصفحات، والقالب — كل التغييرات بتتحفظ تلقائيًا.</div>
+          <button class="btn btn-p" style="width:100%;justify-content:center" onclick="go('s-editor')">افتح محرر الموقع</button>
+        </div>
+        <div class="card pad">
+          <div class="b" style="margin-bottom:10px">مهام مقترحة</div>
+          <div style="display:flex;flex-direction:column;gap:9px;font-size:13px">
+            <div>□ أضف صفحة «من نحن» — <span class="faint">جاهزة بضغطة</span></div>
+            <div>□ أكمّل بيانات الشحن</div>
+            <div>□ جرّب قالب «دافي» الجديد</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ============ EDITOR ============ -->
+<div class="screen" id="s-editor">
+  <div class="etop">
+    <button class="tb" onclick="go('s-dash')">→ لوحة التحكم</button>
+    <span class="ttl">الرئيسية</span>
+    <span class="savedot"><i></i> تم الحفظ</span>
+    <button class="tb">↩ تراجع</button><button class="tb">↪ إعادة</button>
+    <div class="seg"><span class="on">كمبيوتر</span><span>تابلت</span><span>موبايل</span></div>
+    <div class="sp"></div>
+    <button class="tb">الإصدارات</button>
+    <button class="tb">معاينة</button>
+    <button class="bpub">نشر</button>
+  </div>
+  <div class="ebody">
+    <aside class="insp">
+      <div class="tabs"><span class="on">المحتوى</span><span>المظهر</span><span>الحركة</span></div>
+      <div class="fld"><label>العنوان</label><div class="inp focus">تفاصيل صغيرة. فرق كبير.</div></div>
+      <div class="fld"><label>النص الفرعي</label><div class="inp">اختبارات من أدوات البيت والمطبخ…</div></div>
+      <div class="fld"><label>نص الزر</label><div class="inp">تسوق الآن</div></div>
+      <div class="fld"><label>الصورة الخلفية</label><div class="inp">hero-bakha.jpg — <span style="color:var(--blue);font-weight:600">تغيير</span></div></div>
+      <div class="fld"><label>لون الزر</label><div class="inp" style="display:flex;align-items:center;gap:8px"><span style="width:16px;height:16px;border-radius:5px;background:#fff;border:1px solid var(--line)"></span> أبيض — تلقائي من القالب</div></div>
+      <div style="padding:14px 16px"><div style="border:1px dashed var(--line);border-radius:9px;padding:10px 12px;font-size:12px;color:var(--muted);display:flex;justify-content:space-between">إعدادات متقدمة (موضع، تجاوب) <span>‹</span></div></div>
+    </aside>
+    <main class="canvas">
+      <div class="mbrowser">
+        <div class="mb-bar"><span class="dot" style="background:#f87171"></span><span class="dot" style="background:#fbbf24"></span><span class="dot" style="background:#34d399"></span><span class="mb-url">bakha.vexiora.shop</span></div>
+        <div style="background:linear-gradient(120deg,#20291f,#31473a);color:#fff;padding:60px 48px;text-align:center;position:relative" class="selbox">
+          <span class="seltag">واجهة سينمائية — دبل-كليك للتحرير المباشر</span>
+          <div style="font-size:29px;font-weight:700">تفاصيل صغيرة. فرق كبير.</div>
+          <div style="opacity:.72;font-size:14px;margin-top:6px">اختبارات من أدوات البيت والمطبخ، بروح بخة وألوانها</div>
+          <div style="display:inline-block;background:#fff;color:#1c2333;border-radius:8px;padding:9px 26px;font-weight:700;font-size:13px;margin-top:16px">تسوق الآن</div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;padding:24px 30px">
+          <div style="border:1px solid var(--line);border-radius:10px;padding:10px;font-size:11.5px"><div style="height:58px;border-radius:7px;background:#eef0f5;margin-bottom:7px"></div>علبة حفظ طعام<div class="b" style="color:var(--blue)">120 ج.م</div></div>
+          <div style="border:1px solid var(--line);border-radius:10px;padding:10px;font-size:11.5px"><div style="height:58px;border-radius:7px;background:#eef0f5;margin-bottom:7px"></div>طقم توابل<div class="b" style="color:var(--blue)">240 ج.م</div></div>
+          <div style="border:1px solid var(--line);border-radius:10px;padding:10px;font-size:11.5px"><div style="height:58px;border-radius:7px;background:#eef0f5;margin-bottom:7px"></div>زجاجة زيت<div class="b" style="color:var(--blue)">95 ج.م</div></div>
+          <div style="border:1px solid var(--line);border-radius:10px;padding:10px;font-size:11.5px"><div style="height:58px;border-radius:7px;background:#eef0f5;margin-bottom:7px"></div>سلة تقديم<div class="b" style="color:var(--blue)">310 ج.م</div></div>
+        </div>
+      </div>
+      <div class="toast"><div>✓ عدّلت «العنوان» — اتحفظ تلقائيًا · تراجع Ctrl+Z</div></div>
+    </main>
+    <aside class="tree">
+      <div class="hd">هيكل الصفحة <button class="btn btn-p" style="padding:5px 12px;font-size:12px" onclick="go('s-lib')">+ قسم</button></div>
+      <div style="overflow:auto;flex:1">
+        <div class="trow on"><span class="grip">⋮⋮</span><div><b>واجهة سينمائية</b><small>صورة + عنوان + زر</small></div></div>
+        <div class="trow"><span class="grip">⋮⋮</span><div><b>شريط إعلان</b><small>تسويق</small></div></div>
+        <div class="trow"><span class="grip">⋮⋮</span><div><b>شبكة منتجات</b><small>4 أعمدة</small></div></div>
+        <div class="trow"><span class="grip">⋮⋮</span><div><b>آراء العملاء</b><small>سلايدر متحرك</small></div></div>
+        <div class="trow"><span class="grip">⋮⋮</span><div><b>صورة ونص</b><small>قصة البراند</small></div></div>
+        <div class="trow"><span class="grip">⋮⋮</span><div><b>نشرة بريدية</b><small>جمع إيميلات</small></div></div>
+      </div>
+      <div style="padding:12px 16px;border-top:1px solid var(--line)"><button class="btn btn-o" style="width:100%;justify-content:center" onclick="go('s-lib')">+ إضافة قسم من المكتبة</button></div>
+    </aside>
+    <aside class="strip">
+      <button class="on"><div>▦<small>أقسام</small></div></button>
+      <button onclick="go('s-pages')"><div>▤<small>صفحات</small></div></button>
+      <button><div>❑<small>ملفات</small></div></button>
+      <button onclick="go('s-tpl')"><div>✦<small>قوالب</small></div></button>
+      <button><div>⚙<small>هوية</small></div></button>
+    </aside>
+  </div>
+</div>
+<!-- ============ SECTION LIBRARY ============ -->
+<div class="screen" id="s-lib">
+  <div class="etop">
+    <button class="tb" onclick="go('s-dash')">→ لوحة التحكم</button>
+    <span class="ttl">الرئيسية</span>
+    <span class="savedot"><i></i> تم الحفظ</span>
+    <div class="sp"></div>
+    <button class="bpub">نشر</button>
+  </div>
+  <div style="position:relative;min-height:846px;background:var(--bg)">
+    <div style="padding:26px 34px;filter:grayscale(.35)">
+      <div class="mbrowser"><div style="background:linear-gradient(120deg,#20291f,#31473a);padding:58px;text-align:center;color:#fff;opacity:.85"><div style="font-size:25px;font-weight:700">تفاصيل صغيرة. فرق كبير.</div></div></div>
+    </div>
+    <div class="overlay">
+      <div style="flex:1" onclick="go('s-editor')"></div>
+      <div class="libpanel">
+        <div class="hd">
+          <div style="display:flex;align-items:center;justify-content:space-between"><span class="b" style="font-size:15px">مكتبة الأقسام</span><button class="btn btn-g" onclick="go('s-editor')">✕</button></div>
+          <div class="inp" style="margin-top:12px;color:var(--faint)">ابحث عن قسم… (٣٢ قسم)</div>
+        </div>
+        <div style="overflow:auto;flex:1">
+          <div class="libcat">واجهات <i>6</i></div>
+          <div class="libgrid">
+            <div class="libcard"><div class="th" style="background:linear-gradient(135deg,#20291f,#31473a)"></div><b>واجهة سينمائية</b><small>صورة كاملة + عنوان + زر</small></div>
+            <div class="libcard"><div class="th" style="background:linear-gradient(90deg,#e9ecf3 50%,#31473a 50%)"></div><b>واجهة منقسمة</b><small>نص جنب صورة</small></div>
+          </div>
+          <div class="libcat">منتجات <i>7</i></div>
+          <div class="libgrid">
+            <div class="libcard"><div class="th" style="background:repeating-linear-gradient(90deg,#eef0f5 0 22%,#dde1ea 22% 25%)"></div><b>شبكة منتجات</b><small>2/3/4 أعمدة</small></div>
+            <div class="libcard"><div class="th" style="background:linear-gradient(#eef0f5 55%,#c7cfd4 55%)"></div><b>منتج مميز</b><small>تفاصيل + سعر + زر</small></div>
+          </div>
+          <div class="libcat">ثقة ومجتمع <i>5</i></div>
+          <div class="libgrid">
+            <div class="libcard"><div class="th" style="background:repeating-linear-gradient(90deg,#f3f4f8 0 30%,#e2e5ee 30% 33%)"></div><b>آراء العملاء</b><small>سلايدر متحرك</small></div>
+            <div class="libcard"><div class="th" style="background:repeating-linear-gradient(45deg,#1f2544 0 8px,#2a3054 8px 16px)"></div><b>شعارات شركاء</b><small>شريط متحرك</small></div>
+          </div>
+          <div class="libcat">تسويق <i>6</i></div>
+          <div class="libgrid">
+            <div class="libcard"><div class="th" style="background:linear-gradient(90deg,#171c33,#2f6bff)"></div><b>عدّاد عرض</b><small>عدّاد تنازلي + زر</small></div>
+            <div class="libcard"><div class="th" style="background:linear-gradient(#fff 40%,#eef0f5 40%)"></div><b>نشرة بريدية</b><small>جمع إيميلات</small></div>
+          </div>
+          <div class="libcat">محتوى <i>8</i></div>
+          <div class="libgrid">
+            <div class="libcard"><div class="th" style="background:linear-gradient(90deg,#eef0f5 45%,#fff 45%)"></div><b>صورة ونص</b><small>قصة البراند</small></div>
+            <div class="libcard"><div class="th" style="background:repeating-linear-gradient(#fff 0 12px,#eef0f5 12px 24px)"></div><b>أسئلة شائعة</b><small>أكورديون</small></div>
+          </div>
+          <div style="padding:6px 20px 20px"><button class="btn btn-n" style="width:100%;justify-content:center" onclick="go('s-custom')">✦ أو ابنِ قسمك بنفسك من بلوكات</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ============ PAGES ============ -->
+<div class="screen" id="s-pages">
+  <div class="dhead">
+    <div class="brand"><i></i> Vexiora</div>
+    <nav>
+      <a onclick="go('s-dash')">الرئيسية</a><a>الطلبات</a><a>المنتجات</a><a>العملاء</a><a>التسويق</a>
+      <a onclick="go('s-editor')">محرر الموقع</a><a class="on">الصفحات</a><a onclick="go('s-tpl')">القوالب</a><a>الإعدادات</a>
+    </nav>
+    <div class="sp"></div>
+    <span style="font-size:12.5px;color:#a9b0d0">متجر بخة للمنسوجات</span>
+  </div>
+  <div class="dbody">
+    <div style="display:flex;align-items:center;gap:14px">
+      <div><div class="b" style="font-size:19px">الصفحات</div><div class="muted" style="font-size:13px">6 صفحات · الروابط بتتعمل تلقائيًا</div></div>
+      <div class="sp"></div>
+      <button class="btn btn-p">+ صفحة جديدة</button>
+    </div>
+    <div class="card">
+      <div class="pad" style="border-bottom:1px solid var(--line)"><span class="b">صفحاتك</span></div>
+      <table>
+        <tr><th>الصفحة</th><th>الرابط</th><th>الحالة</th><th>آخر تعديل</th><th></th></tr>
+        <tr><td class="sb">الرئيسية</td><td class="faint" dir="ltr">/</td><td><span class="pill g">منشورة</span></td><td class="muted">منذ ساعتين</td><td><button class="btn btn-o" style="padding:5px 14px;font-size:12px" onclick="go('s-editor')">تحرير</button></td></tr>
+        <tr><td class="sb">من نحن</td><td class="faint" dir="ltr">/about</td><td><span class="pill g">منشورة</span></td><td class="muted">أمس</td><td><button class="btn btn-o" style="padding:5px 14px;font-size:12px">تحرير</button></td></tr>
+        <tr><td class="sb">اتصل بنا</td><td class="faint" dir="ltr">/contact</td><td><span class="pill g">منشورة</span></td><td class="muted">أمس</td><td><button class="btn btn-o" style="padding:5px 14px;font-size:12px">تحرير</button></td></tr>
+        <tr><td class="sb">الأسئلة الشائعة</td><td class="faint" dir="ltr">/faq</td><td><span class="pill n">مسودة</span></td><td class="muted">منذ 3 أيام</td><td><button class="btn btn-o" style="padding:5px 14px;font-size:12px">تحرير</button></td></tr>
+      </table>
+    </div>
+    <div>
+      <div class="b" style="margin-bottom:4px;font-size:15px">ابدأ من صفحة جاهزة</div>
+      <div class="muted" style="font-size:13px;margin-bottom:14px">محتوى عربي مبدئي تعدّله زي أي صفحة — مفيش صفحة بتتفتح فاضية.</div>
+      <div class="grid4" style="grid-template-columns:repeat(3,1fr)">
+        <div class="card pad"><div class="b">من نحن</div><div class="muted" style="font-size:12.5px;margin:6px 0 12px">قصة البراند + صورة + أرقام ثقة</div><button class="btn btn-o" style="width:100%;justify-content:center">استخدام الصفحة</button></div>
+        <div class="card pad"><div class="b">اتصل بنا</div><div class="muted" style="font-size:12.5px;margin:6px 0 12px">فورم تواصل + بيانات المتجر والخريطة</div><button class="btn btn-o" style="width:100%;justify-content:center">استخدام الصفحة</button></div>
+        <div class="card pad"><div class="b">سياسة الخصوصية</div><div class="muted" style="font-size:12.5px;margin:6px 0 12px">نص قانوني مبدئي بالعربي</div><button class="btn btn-o" style="width:100%;justify-content:center">استخدام الصفحة</button></div>
+        <div class="card pad"><div class="b">الشحن والإرجاع</div><div class="muted" style="font-size:12.5px;margin:6px 0 12px">نص مبدئي + جدول مناطق الشحن</div><button class="btn btn-o" style="width:100%;justify-content:center">استخدام الصفحة</button></div>
+        <div class="card pad"><div class="b">الأسئلة الشائعة</div><div class="muted" style="font-size:12.5px;margin:6px 0 12px">أكورديون جاهز تملاه بأسئلتك</div><button class="btn btn-o" style="width:100%;justify-content:center">استخدام الصفحة</button></div>
+        <div class="card pad"><div class="b">صفحة فارغة</div><div class="muted" style="font-size:12.5px;margin:6px 0 12px">ابدأ من الصفر بالمحرر</div><button class="btn btn-o" style="width:100%;justify-content:center">صفحة فارغة</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ============ CUSTOM SECTION BUILDER ============ -->
+<div class="screen" id="s-custom">
+  <div class="etop">
+    <button class="tb" onclick="go('s-lib')">→ مكتبة الأقسام</button>
+    <span class="ttl">قسم مخصص: «عرض العيد»</span>
+    <span class="savedot"><i></i> مسودة محفوظة</span>
+    <div class="sp"></div>
+    <button class="tb">حفظ كقسم في مكتبتي</button>
+    <button class="bpub">إضافة للصفحة</button>
+  </div>
+  <div class="ebody">
+    <aside class="insp">
+      <div class="tabs"><span class="on">البلوك</span><span>القسم</span></div>
+      <div class="fld"><label>البلوك المحدد: عنوان</label><div class="inp focus">عرض العيد — خصم ٢٥٪</div></div>
+      <div class="fld"><label>الحجم</label><div class="inp">كبير ▾</div></div>
+      <div class="fld"><label>المحاذاة</label><div class="inp">وسط ▾</div></div>
+      <div class="fld"><label>حركة الظهور</label><div class="inp">انزلاق ناعم ▾</div></div>
+      <div style="padding:14px 16px"><div style="border:1px dashed var(--line);border-radius:9px;padding:10px 12px;font-size:12px;color:var(--muted);display:flex;justify-content:space-between">متقدم (إظهار شرطي، تجاوب) <span>‹</span></div></div>
+    </aside>
+    <main class="canvas">
+      <div class="drop">
+        <div class="dz selbox"><span class="seltag">بلوك: عنوان</span><span class="mv">⋮⋮ اسحب</span><div class="b" style="font-size:19px;margin-top:8px">عرض العيد — خصم ٢٥٪</div><div class="faint" style="font-size:11.5px">دبل-كليك للتحرير المباشر</div></div>
+        <div class="dz"><span class="mv">⋮⋮ اسحب</span><div style="display:flex;gap:12px;align-items:center"><div style="width:130px;height:76px;border-radius:9px;background:linear-gradient(135deg,#c7cfd4,#8ba393)"></div><div class="muted">بلوك: صورة — بدّلها من مكتبة الصور</div></div></div>
+        <div class="dz"><span class="mv">⋮⋮ اسحب</span>بلوك: عدّاد تنازلي — <b style="color:var(--blue)">ينتهي خلال 2 يوم : 14 س : 09 د</b></div>
+        <div class="dz"><span class="mv">⋮⋮ اسحب</span><span style="display:inline-block;background:var(--navy);color:#fff;border-radius:8px;padding:8px 22px;font-size:12.5px;font-weight:700">تسوق العرض</span> <span class="faint" style="font-size:11.5px">بلوك: زر — لونه من هويتك</span></div>
+        <div style="text-align:center;color:var(--blue);font-weight:700;font-size:13px;border:1.5px dashed rgba(47,107,255,.4);border-radius:10px;padding:12px;background:#fff">+ أضف بلوك</div>
+      </div>
+    </main>
+    <aside class="tree">
+      <div class="hd">البلوكات</div>
+      <div class="blkgrid">
+        <div class="blk"><i>ع</i>عنوان</div><div class="blk"><i>ن</i>نص</div>
+        <div class="blk"><i>ص</i>صورة</div><div class="blk"><i>ز</i>زر</div>
+        <div class="blk"><i>ف</i>فيديو</div><div class="blk"><i>م</i>منتجات</div>
+        <div class="blk"><i>★</i>تقييم</div><div class="blk"><i>#</i>عدّاد</div>
+        <div class="blk"><i>‒</i>مسافة</div><div class="blk"><i>‖</i>أعمدة</div>
+      </div>
+      <div style="padding:14px 16px;border-top:1px solid var(--line);font-size:12px" class="muted">
+        <b style="color:var(--ink)">قواعد ثابتة:</b> المقاسات والخطوط والألوان بتيجي من هوية متجرك تلقائيًا — أي قسم تركّبه يطلع متناسق.
+      </div>
+    </aside>
+    <aside class="strip">
+      <button class="on"><div>▦<small>بلوكات</small></div></button>
+      <button onclick="go('s-editor')"><div>✦<small>المحرر</small></div></button>
+      <button><div>⚙<small>هوية</small></div></button>
+    </aside>
+  </div>
+</div>
+<!-- ============ TEMPLATES ============ -->
+<div class="screen" id="s-tpl">
+  <div class="dhead">
+    <div class="brand"><i></i> Vexiora</div>
+    <nav>
+      <a onclick="go('s-dash')">الرئيسية</a><a>الطلبات</a><a>المنتجات</a><a>العملاء</a><a>التسويق</a>
+      <a onclick="go('s-editor')">محرر الموقع</a><a onclick="go('s-pages')">الصفحات</a><a class="on">القوالب</a><a>الإعدادات</a>
+    </nav>
+    <div class="sp"></div>
+    <span style="font-size:12.5px;color:#a9b0d0">متجر بخة للمنسوجات</span>
+  </div>
+  <div class="dbody">
+    <div style="display:flex;align-items:center;gap:14px">
+      <div><div class="b" style="font-size:19px">القوالب</div><div class="muted" style="font-size:13px">١٦ قالب — كل واحد هوية مختلفة فعلًا، والمعاينة بتتفتح على نسخة تجريبية من متجرك قبل التطبيق</div></div>
+      <div class="sp"></div>
+      <button class="btn btn-o">تصفية: كل الأنشطة ▾</button>
+    </div>
+    <div class="tgrid">
+      <div class="card tcard"><div class="im" style="background:linear-gradient(135deg,#20291f,#31473a)"></div><div class="mt"><div><b>فاخر</b> <span class="pill g">الحالي</span><br><small>مجوهرات وعطور</small></div><button class="btn btn-g" style="font-size:12px">معاينة</button></div></div>
+      <div class="card tcard"><div class="im" style="background:linear-gradient(135deg,#f5e6c8,#e0b36a)"></div><div class="mt"><div><b>دافي</b><br><small>مخبوزات وقهوة</small></div><button class="btn btn-g" style="font-size:12px">معاينة</button></div></div>
+      <div class="card tcard"><div class="im" style="background:linear-gradient(135deg,#0b0f1a,#123a6d)"></div><div class="mt"><div><b>نيون</b> <span class="pill y">جديد</span><br><small>إلكترونيات وجيمنج</small></div><button class="btn btn-g" style="font-size:12px">معاينة</button></div></div>
+      <div class="card tcard"><div class="im" style="background:repeating-linear-gradient(90deg,#f6f1e7 0 14px,#ece3d0 14px 28px)"></div><div class="mt"><div><b>ورقي</b> <span class="pill y">جديد</span><br><small>مكتبات وهاند ميد</small></div><button class="btn btn-g" style="font-size:12px">معاينة</button></div></div>
+      <div class="card tcard"><div class="im" style="background:repeating-linear-gradient(45deg,#141414 0 10px,#242424 10px 20px)"></div><div class="mt"><div><b>مونو</b> <span class="pill y">جديد</span><br><small>أزياء رجالي</small></div><button class="btn btn-g" style="font-size:12px">معاينة</button></div></div>
+      <div class="card tcard"><div class="im" style="background:linear-gradient(135deg,#fff,#f3dfe4)"></div><div class="mt"><div><b>ناعم</b> <span class="pill y">جديد</span><br><small>عناية وتجميل</small></div><button class="btn btn-g" style="font-size:12px">معاينة</button></div></div>
+      <div class="card tcard"><div class="im" style="background:conic-gradient(#2f6bff,#6a9bff,#eab308,#2f6bff)"></div><div class="mt"><div><b>حيوي</b> <span class="pill y">جديد</span><br><small>رياضة وأطفال</small></div><button class="btn btn-g" style="font-size:12px">معاينة</button></div></div>
+      <div class="card tcard"><div class="im" style="background:linear-gradient(#f6f1e7 55%,#7a5c3e 55%)"></div><div class="mt"><div><b>تراثي</b> <span class="pill y">جديد</span><br><small>منتجات محلية</small></div><button class="btn btn-g" style="font-size:12px">معاينة</button></div></div>
+    </div>
+    <div class="muted" style="margin-top:18px;font-size:12.5px">+ ٨ قوالب أخرى. تغيير القالب مش بيمسح محتواك — الأقسام والنصوص بتفضل زي ما هي.</div>
+  </div>
+</div>
+</div><!-- /frame -->
+<div class="switcher">
+  <button data-s="s-dash" class="on">لوحة التحكم</button>
+  <button data-s="s-editor">المحرر</button>
+  <button data-s="s-lib">مكتبة الأقسام</button>
+  <button data-s="s-pages">الصفحات</button>
+  <button data-s="s-custom">ابنِ قسمك</button>
+  <button data-s="s-tpl">القوالب</button>
+</div>
+<script>
+function go(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  document.querySelectorAll('.switcher button').forEach(b=>b.classList.toggle('on',b.dataset.s===id));
+  window.scrollTo(0,0);
+}
+document.querySelectorAll('.switcher button').forEach(b=>b.onclick=()=>go(b.dataset.s));
+</script>
+</body>
+</html>
