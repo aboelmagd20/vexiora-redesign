@@ -165,9 +165,14 @@ html[dir=rtl] .marq .track{animation-name:marr}
 .dur b{font-size:14.5px;font-weight:700}
 .dur>span{font-size:10.5px}
 .dur.active{background:var(--lapis);color:#fff}
-.plan .porig{font-size:17px;color:var(--muted);font-weight:400;margin-inline-start:10px;font-family:"IBM Plex Mono"}
+.eqline{font-size:14px;color:var(--muted);margin:2px 0 18px}
+.plan.rec .eqline{color:rgba(255,255,255,.55)}
+.pper{font-size:13px;color:var(--muted);font-weight:400}
+.plan.rec .pper{color:rgba(255,255,255,.55)}
+.plan .price{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.plan .porig{font-size:13.5px;color:var(--muted);font-weight:400;margin-inline-start:6px;font-family:"IBM Plex Mono"}
 .plan.rec .porig{color:rgba(255,255,255,.5)}
-.savebadge{display:inline-block;background:rgba(15,122,85,.1);color:var(--lapis);font-size:11.5px;font-weight:700;padding:5px 13px;border-radius:99px;margin:0 0 16px}
+.savebadge{display:inline-block;background:rgba(15,122,85,.1);color:var(--lapis);font-size:11.5px;font-weight:700;padding:5px 13px;border-radius:99px;margin:-8px 0 16px}
 .plan.rec .savebadge{background:rgba(236,192,122,.16);color:#ecc07a}
 .shared{margin:32px auto 0;text-align:center;font-size:12.5px;color:var(--muted);max-width:840px;line-height:2}
 .shared b{color:var(--ink)}
@@ -399,8 +404,8 @@ footer a:hover{color:#fff}
     <div class="pgrid">
       <div class="plan rv" data-plan="starter">
         <h3><span lang-ar>البداية</span><span lang-en>Starter</span></h3>
-        <div class="price"><span class="pnum">≈ 563</span> <small><span lang-ar>ج.م/شهر</span><span lang-en>EGP/mo</span></small><del class="porig">750</del></div>
-        <div class="per"><span class="ptotal" lang-ar>6,750 ج.م لمدة سنة</span><span class="ptotal" lang-en>EGP 6,750 for 12 months</span></div>
+        <div class="price"><span class="ptot">6,750</span> <small><span lang-ar>ج.م</span><span lang-en>EGP</span></small> <span class="pper"><span class="pper-t" lang-ar>لمدة سنة</span><span class="pper-t" lang-en>for 12 months</span></span></div>
+        <div class="eqline"><span class="peq" lang-ar>≈ 563 ج.م/شهر</span><span class="peq" lang-en>≈ EGP 563/mo</span> <del class="porig">750</del></div>
         <span class="savebadge"><span class="psave" lang-ar>وفّر 2,250 ج.م</span><span class="psave" lang-en>Save EGP 2,250</span></span>
         <ul>
           <li><span lang-ar>حتى 250 منتج · 500 طلب في الشهر</span><span lang-en>Up to 250 products · 500 orders a month</span></li>
@@ -417,8 +422,8 @@ footer a:hover{color:#fff}
       <div class="plan rec rv" data-plan="growth">
         <span class="badge"><span lang-ar>الأنسب لمعظم المتاجر</span><span lang-en>Best for most stores</span></span>
         <h3><span lang-ar>النمو</span><span lang-en>Growth</span></h3>
-        <div class="price"><span class="pnum">≈ 833</span> <small><span lang-ar>ج.م/شهر</span><span lang-en>EGP/mo</span></small><del class="porig">1,100</del></div>
-        <div class="per"><span class="ptotal" lang-ar>10,000 ج.م لمدة سنة</span><span class="ptotal" lang-en>EGP 10,000 for 12 months</span></div>
+        <div class="price"><span class="ptot">10,000</span> <small><span lang-ar>ج.م</span><span lang-en>EGP</span></small> <span class="pper"><span class="pper-t" lang-ar>لمدة سنة</span><span class="pper-t" lang-en>for 12 months</span></span></div>
+        <div class="eqline"><span class="peq" lang-ar>≈ 833 ج.م/شهر</span><span class="peq" lang-en>≈ EGP 833/mo</span> <del class="porig">1,100</del></div>
         <span class="savebadge"><span class="psave" lang-ar>وفّر 3,200 ج.م</span><span class="psave" lang-en>Save EGP 3,200</span></span>
         <ul>
           <li><span lang-ar>كل اللي في البداية، وكمان:</span><span lang-en>Everything in Starter, plus:</span></li>
@@ -435,8 +440,8 @@ footer a:hover{color:#fff}
       </div>
       <div class="plan rv" data-plan="pro">
         <h3><span lang-ar>برو</span><span lang-en>Pro</span></h3>
-        <div class="price"><span class="pnum">1,125</span> <small><span lang-ar>ج.م/شهر</span><span lang-en>EGP/mo</span></small><del class="porig">1,500</del></div>
-        <div class="per"><span class="ptotal" lang-ar>13,500 ج.م لمدة سنة</span><span class="ptotal" lang-en>EGP 13,500 for 12 months</span></div>
+        <div class="price"><span class="ptot">13,500</span> <small><span lang-ar>ج.م</span><span lang-en>EGP</span></small> <span class="pper"><span class="pper-t" lang-ar>لمدة سنة</span><span class="pper-t" lang-en>for 12 months</span></span></div>
+        <div class="eqline"><span class="peq" lang-ar>1,125 ج.م/شهر</span><span class="peq" lang-en>EGP 1,125/mo</span> <del class="porig">1,500</del></div>
         <span class="savebadge"><span class="psave" lang-ar>وفّر 4,500 ج.م</span><span class="psave" lang-en>Save EGP 4,500</span></span>
         <ul>
           <li><span lang-ar>كل اللي في النمو، وكمان:</span><span lang-en>Everything in Growth, plus:</span></li>
@@ -525,18 +530,33 @@ t.onclick=()=>{const en=document.documentElement.classList.toggle('en');
  t.textContent=en?'العربية':'English';};
 
 const PRICING={
- starter:{m3:{n:'750',t:['2,250 ج.م لمدة 3 شهور','EGP 2,250 for 3 months'],s:null},
-  m6:{n:'675',t:['4,050 ج.م لمدة 6 شهور','EGP 4,050 for 6 months'],s:['وفّر 450 ج.م','Save EGP 450']},
-  m12:{n:'≈ 563',t:['6,750 ج.م لمدة سنة','EGP 6,750 for 12 months'],s:['وفّر 2,250 ج.م','Save EGP 2,250']}},
- growth:{m3:{n:'1,100',t:['3,300 ج.م لمدة 3 شهور','EGP 3,300 for 3 months'],s:null},
-  m6:{n:'990',t:['5,940 ج.م لمدة 6 شهور','EGP 5,940 for 6 months'],s:['وفّر 660 ج.م','Save EGP 660']},
-  m12:{n:'≈ 833',t:['10,000 ج.م لمدة سنة','EGP 10,000 for 12 months'],s:['وفّر 3,200 ج.م','Save EGP 3,200']}},
- pro:{m3:{n:'1,500',t:['4,500 ج.م لمدة 3 شهور','EGP 4,500 for 3 months'],s:null},
-  m6:{n:'1,350',t:['8,100 ج.م لمدة 6 شهور','EGP 8,100 for 6 months'],s:['وفّر 900 ج.م','Save EGP 900']},
-  m12:{n:'1,125',t:['13,500 ج.م لمدة سنة','EGP 13,500 for 12 months'],s:['وفّر 4,500 ج.م','Save EGP 4,500']}}};
-const ORIG={starter:'750',growth:'1,100',pro:'1,500'};
+ starter:{m3:{t:'2,250',pl:['لمدة 3 شهور','for 3 months'],eq:['750 ج.م/شهر','EGP 750/mo'],o:null,s:null},
+  m6:{t:'4,050',pl:['لمدة 6 شهور','for 6 months'],eq:['675 ج.م/شهر','EGP 675/mo'],o:'750',s:['وفّر 450 ج.م','Save EGP 450']},
+  m12:{t:'6,750',pl:['لمدة سنة','for 12 months'],eq:['≈ 563 ج.م/شهر','≈ EGP 563/mo'],o:'750',s:['وفّر 2,250 ج.م','Save EGP 2,250']}},
+ growth:{m3:{t:'3,300',pl:['لمدة 3 شهور','for 3 months'],eq:['1,100 ج.م/شهر','EGP 1,100/mo'],o:null,s:null},
+  m6:{t:'5,940',pl:['لمدة 6 شهور','for 6 months'],eq:['990 ج.م/شهر','EGP 990/mo'],o:'1,100',s:['وفّر 660 ج.م','Save EGP 660']},
+  m12:{t:'10,000',pl:['لمدة سنة','for 12 months'],eq:['≈ 833 ج.م/شهر','≈ EGP 833/mo'],o:'1,100',s:['وفّر 3,200 ج.م','Save EGP 3,200']}},
+ pro:{m3:{t:'4,500',pl:['لمدة 3 شهور','for 3 months'],eq:['1,500 ج.م/شهر','EGP 1,500/mo'],o:null,s:null},
+  m6:{t:'8,100',pl:['لمدة 6 شهور','for 6 months'],eq:['1,350 ج.م/شهر','EGP 1,350/mo'],o:'1,500',s:['وفّر 900 ج.م','Save EGP 900']},
+  m12:{t:'13,500',pl:['لمدة سنة','for 12 months'],eq:['1,125 ج.م/شهر','EGP 1,125/mo'],o:'1,500',s:['وفّر 4,500 ج.م','Save EGP 4,500']}}};
 function setDur(d){
  document.querySelectorAll('.dur').forEach(b=>b.classList.toggle('active',b.dataset.dur===d));
+ document.querySelectorAll('.plan[data-plan]').forEach(card=>{
+  const p=PRICING[card.dataset.plan][d];
+  card.querySelector('.ptot').textContent=p.t;
+  card.querySelector('.pper-t[lang-ar]').textContent=p.pl[0];
+  card.querySelector('.pper-t[lang-en]').textContent=p.pl[1];
+  card.querySelector('.peq[lang-ar]').textContent=p.eq[0];
+  card.querySelector('.peq[lang-en]').textContent=p.eq[1];
+  const orig=card.querySelector('.porig');
+  if(!p.o){orig.style.display='none'}else{orig.style.display='';orig.textContent=p.o}
+  const badge=card.querySelector('.savebadge');
+  if(!p.s){badge.style.display='none'}else{badge.style.display='';
+   badge.querySelector('.psave[lang-ar]').textContent=p.s[0];
+   badge.querySelector('.psave[lang-en]').textContent=p.s[1]}
+ });
+}
+document.querySelectorAll('.dur').forEach(b=>b.classList.toggle('active',b.dataset.dur===d));
  document.querySelectorAll('.plan[data-plan]').forEach(card=>{
   const p=PRICING[card.dataset.plan][d];
   card.querySelector('.pnum').textContent=p.n;
