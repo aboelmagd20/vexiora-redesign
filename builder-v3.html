@@ -126,28 +126,60 @@ tr:last-child td{border-bottom:0}
 .drop{margin:24px;border:2px dashed #c4cbdd;border-radius:14px;padding:18px;background:#fbfbfe}
 .dz{background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:10px;position:relative;font-size:13px}
 .dz .mv{position:absolute;top:12px;inset-inline-end:12px;color:var(--faint);font-size:11px}
+
+/* v4: light top bars, sidebar nav, expandable sections */
+.etop{background:#fff;color:var(--ink);border-bottom:1px solid var(--line)}
+.etop .tb{background:var(--panel2);border-color:var(--line);color:var(--muted)}
+.etop .tb:hover{background:var(--line2);color:var(--ink)}
+.etop .seg{background:var(--line2)}
+.etop .seg span{color:var(--muted)}
+.etop .seg span.on{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(16,24,40,.1)}
+.side{width:240px;background:var(--navy);color:#c9cfe6;display:flex;flex-direction:column;flex-shrink:0;min-height:900px}
+.side .brand{display:flex;align-items:center;gap:10px;padding:18px 20px;color:#fff;font-weight:700;font-size:16px;border-bottom:1px solid rgba(255,255,255,.08)}
+.side .brand i{width:26px;height:26px;border-radius:7px;background:var(--blue);display:inline-block}
+.side nav{padding:12px;display:flex;flex-direction:column;gap:2px}
+.side .cap{font-size:11px;color:#5d6590;padding:14px 10px 6px;font-weight:600}
+.side nav a{display:flex;align-items:center;gap:11px;padding:9px 12px;border-radius:9px;color:#a9b0d0;text-decoration:none;font-size:13.5px;font-weight:500;cursor:pointer}
+.side nav a:hover{background:var(--navy3);color:#fff}
+.side nav a.on{background:var(--navy3);color:#fff;box-shadow:inset -2px 0 0 var(--blue)}
+.side .foot{margin-top:auto;padding:16px;border-top:1px solid rgba(255,255,255,.08);font-size:12px;color:#7a84ad}
+.maincol{flex:1;min-width:0;display:flex;flex-direction:column}
+.ltop{height:58px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px;padding:0 26px;flex-shrink:0}
+.ltop h1{font-size:16px;font-weight:700}
+.ltop .crumb{color:var(--faint);font-size:12.5px}
+.brow{display:flex;align-items:center;gap:9px;padding:8px 16px 8px 40px;border-bottom:1px solid var(--line2);font-size:12.5px;cursor:pointer;color:var(--muted)}
+.brow:hover{background:#fff}
+.brow.on{background:var(--blue-soft);box-shadow:inset -2px 0 0 var(--blue);color:var(--ink)}
+.brow i{font-style:normal;width:20px;height:20px;display:grid;place-items:center;background:var(--line2);border-radius:5px;font-size:10px;color:var(--ink);flex-shrink:0}
+.brow.on i{background:#fff;color:var(--blue)}
+.trow .chev{margin-inline-start:auto;color:var(--faint);font-size:11px}
 </style>
 </head>
 <body>
 <div class="frame">
 <!-- ============ DASHBOARD ============ -->
 <div class="screen on" id="s-dash">
-  <div class="dhead">
-    <div class="brand"><i></i> Vexiora</div>
-    <nav>
-      <a class="on">الرئيسية</a><a>الطلبات</a><a>المنتجات</a><a>العملاء</a><a>التسويق</a>
-      <a onclick="go('s-editor')">محرر الموقع</a><a onclick="go('s-pages')">الصفحات</a><a onclick="go('s-tpl')">القوالب</a><a>الإعدادات</a>
-    </nav>
-    <div class="sp"></div>
-    <span style="font-size:12.5px;color:#a9b0d0">متجر بخة للمنسوجات · bakha.vexiora.shop</span>
-  </div>
-  <div class="dbody">
-    <div style="display:flex;align-items:center;gap:14px">
-      <div><div class="b" style="font-size:19px">صباح الخير، محمد</div><div class="muted" style="font-size:13px">آخر تحديث للموقع: منذ ساعتين</div></div>
-      <div class="sp"></div>
-      <button class="btn btn-o">زيارة المتجر ↗</button>
-      <button class="btn btn-p" onclick="go('s-editor')">افتح محرر الموقع</button>
-    </div>
+<div style="display:flex;min-height:900px">
+<aside class="side">
+<div class="brand"><i></i> Vexiora</div>
+<nav>
+<div class="cap">المتجر</div>
+<a class="on" onclick="go('s-dash')"><span>⌂</span> الرئيسية</a>
+<a><span>▤</span> الطلبات</a>
+<a><span>◈</span> المنتجات</a>
+<a><span>♟</span> العملاء</a>
+<a><span>◔</span> التسويق</a>
+<div class="cap">الموقع</div>
+<a onclick="go('s-editor')"><span>✦</span> محرر الموقع</a>
+<a onclick="go('s-pages')"><span>▦</span> الصفحات</a>
+<a onclick="go('s-tpl')"><span>❑</span> القوالب</a>
+<div class="cap">النظام</div>
+<a><span>⚙</span> الإعدادات</a>
+</nav><div class="foot">متجر بخة للمنسوجات<br><span style="color:#565f8a;direction:ltr;display:inline-block">bakha.vexiora.shop</span></div></aside>
+<div class="maincol">
+<div class="ltop"><h1>صباح الخير، محمد</h1><span class="crumb">آخر تحديث للموقع: منذ ساعتين</span><div class="sp"></div><button class="btn btn-o">زيارة المتجر ↗</button> <button class="btn btn-p" onclick="go('s-editor')">افتح محرر الموقع</button></div>
+<div class="dbody">
+    
     <div class="grid4">
       <div class="card stat"><div class="k">مبيعات اليوم</div><div class="v">4,820 ج.م</div><div class="d up">▲ 18% عن أمس</div></div>
       <div class="card stat"><div class="k">الطلبات</div><div class="v">12</div><div class="d up">▲ 3 جديدة</div></div>
@@ -184,6 +216,7 @@ tr:last-child td{border-bottom:0}
       </div>
     </div>
   </div>
+</div></div>
 </div>
 <!-- ============ EDITOR ============ -->
 <div class="screen" id="s-editor">
@@ -201,6 +234,7 @@ tr:last-child td{border-bottom:0}
   <div class="ebody">
     <aside class="insp">
       <div class="tabs"><span class="on">المحتوى</span><span>المظهر</span><span>الحركة</span></div>
+      <div style="padding:9px 16px;border-bottom:1px solid var(--line2);font-size:11.5px;color:var(--faint)">واجهة سينمائية ‹ <b style="color:var(--ink)">بلوك: عنوان</b></div>
       <div class="fld"><label>العنوان</label><div class="inp focus">تفاصيل صغيرة. فرق كبير.</div></div>
       <div class="fld"><label>النص الفرعي</label><div class="inp">اختبارات من أدوات البيت والمطبخ…</div></div>
       <div class="fld"><label>نص الزر</label><div class="inp">تسوق الآن</div></div>
@@ -229,10 +263,14 @@ tr:last-child td{border-bottom:0}
     <aside class="tree">
       <div class="hd">هيكل الصفحة <button class="btn btn-p" style="padding:5px 12px;font-size:12px" onclick="go('s-lib')">+ قسم</button></div>
       <div style="overflow:auto;flex:1">
-        <div class="trow on"><span class="grip">⋮⋮</span><div><b>واجهة سينمائية</b><small>صورة + عنوان + زر</small></div></div>
-        <div class="trow"><span class="grip">⋮⋮</span><div><b>شريط إعلان</b><small>تسويق</small></div></div>
-        <div class="trow"><span class="grip">⋮⋮</span><div><b>شبكة منتجات</b><small>4 أعمدة</small></div></div>
-        <div class="trow"><span class="grip">⋮⋮</span><div><b>آراء العملاء</b><small>سلايدر متحرك</small></div></div>
+        <div class="trow on"><span class="grip">⋮⋮</span><div><b>واجهة سينمائية</b><small>صورة + عنوان + زر</small></div><span class="chev">⌄</span></div>
+        <div class="brow on"><i>ع</i> عنوان — «تفاصيل صغيرة. فرق كبير.»</div>
+        <div class="brow"><i>ن</i> نص فرعي</div>
+        <div class="brow"><i>ز</i> زر — «تسوق الآن»</div>
+        <div class="brow"><i>ص</i> صورة الخلفية</div>
+        <div class="trow"><span class="grip">⋮⋮</span><div><b>شريط إعلان</b><small>تسويق</small></div><span class="chev">›</span></div>
+        <div class="trow"><span class="grip">⋮⋮</span><div><b>شبكة منتجات</b><small>4 أعمدة</small></div><span class="chev">›</span></div>
+        <div class="trow"><span class="grip">⋮⋮</span><div><b>آراء العملاء</b><small>سلايدر متحرك</small></div><span class="chev">›</span></div>
         <div class="trow"><span class="grip">⋮⋮</span><div><b>صورة ونص</b><small>قصة البراند</small></div></div>
         <div class="trow"><span class="grip">⋮⋮</span><div><b>نشرة بريدية</b><small>جمع إيميلات</small></div></div>
       </div>
@@ -301,21 +339,27 @@ tr:last-child td{border-bottom:0}
 </div>
 <!-- ============ PAGES ============ -->
 <div class="screen" id="s-pages">
-  <div class="dhead">
-    <div class="brand"><i></i> Vexiora</div>
-    <nav>
-      <a onclick="go('s-dash')">الرئيسية</a><a>الطلبات</a><a>المنتجات</a><a>العملاء</a><a>التسويق</a>
-      <a onclick="go('s-editor')">محرر الموقع</a><a class="on">الصفحات</a><a onclick="go('s-tpl')">القوالب</a><a>الإعدادات</a>
-    </nav>
-    <div class="sp"></div>
-    <span style="font-size:12.5px;color:#a9b0d0">متجر بخة للمنسوجات</span>
-  </div>
-  <div class="dbody">
-    <div style="display:flex;align-items:center;gap:14px">
-      <div><div class="b" style="font-size:19px">الصفحات</div><div class="muted" style="font-size:13px">6 صفحات · الروابط بتتعمل تلقائيًا</div></div>
-      <div class="sp"></div>
-      <button class="btn btn-p">+ صفحة جديدة</button>
-    </div>
+<div style="display:flex;min-height:900px">
+<aside class="side">
+<div class="brand"><i></i> Vexiora</div>
+<nav>
+<div class="cap">المتجر</div>
+<a onclick="go('s-dash')"><span>⌂</span> الرئيسية</a>
+<a><span>▤</span> الطلبات</a>
+<a><span>◈</span> المنتجات</a>
+<a><span>♟</span> العملاء</a>
+<a><span>◔</span> التسويق</a>
+<div class="cap">الموقع</div>
+<a onclick="go('s-editor')"><span>✦</span> محرر الموقع</a>
+<a class="on" onclick="go('s-pages')"><span>▦</span> الصفحات</a>
+<a onclick="go('s-tpl')"><span>❑</span> القوالب</a>
+<div class="cap">النظام</div>
+<a><span>⚙</span> الإعدادات</a>
+</nav><div class="foot">متجر بخة للمنسوجات<br><span style="color:#565f8a;direction:ltr;display:inline-block">bakha.vexiora.shop</span></div></aside>
+<div class="maincol">
+<div class="ltop"><h1>الصفحات</h1><span class="crumb">6 صفحات · الروابط بتتعمل تلقائيًا</span><div class="sp"></div><button class="btn btn-p">+ صفحة جديدة</button></div>
+<div class="dbody">
+    
     <div class="card">
       <div class="pad" style="border-bottom:1px solid var(--line)"><span class="b">صفحاتك</span></div>
       <table>
@@ -339,6 +383,7 @@ tr:last-child td{border-bottom:0}
       </div>
     </div>
   </div>
+</div></div>
 </div>
 <!-- ============ CUSTOM SECTION BUILDER ============ -->
 <div class="screen" id="s-custom">
@@ -390,21 +435,27 @@ tr:last-child td{border-bottom:0}
 </div>
 <!-- ============ TEMPLATES ============ -->
 <div class="screen" id="s-tpl">
-  <div class="dhead">
-    <div class="brand"><i></i> Vexiora</div>
-    <nav>
-      <a onclick="go('s-dash')">الرئيسية</a><a>الطلبات</a><a>المنتجات</a><a>العملاء</a><a>التسويق</a>
-      <a onclick="go('s-editor')">محرر الموقع</a><a onclick="go('s-pages')">الصفحات</a><a class="on">القوالب</a><a>الإعدادات</a>
-    </nav>
-    <div class="sp"></div>
-    <span style="font-size:12.5px;color:#a9b0d0">متجر بخة للمنسوجات</span>
-  </div>
-  <div class="dbody">
-    <div style="display:flex;align-items:center;gap:14px">
-      <div><div class="b" style="font-size:19px">القوالب</div><div class="muted" style="font-size:13px">١٦ قالب — كل واحد هوية مختلفة فعلًا، والمعاينة بتتفتح على نسخة تجريبية من متجرك قبل التطبيق</div></div>
-      <div class="sp"></div>
-      <button class="btn btn-o">تصفية: كل الأنشطة ▾</button>
-    </div>
+<div style="display:flex;min-height:900px">
+<aside class="side">
+<div class="brand"><i></i> Vexiora</div>
+<nav>
+<div class="cap">المتجر</div>
+<a onclick="go('s-dash')"><span>⌂</span> الرئيسية</a>
+<a><span>▤</span> الطلبات</a>
+<a><span>◈</span> المنتجات</a>
+<a><span>♟</span> العملاء</a>
+<a><span>◔</span> التسويق</a>
+<div class="cap">الموقع</div>
+<a onclick="go('s-editor')"><span>✦</span> محرر الموقع</a>
+<a onclick="go('s-pages')"><span>▦</span> الصفحات</a>
+<a class="on" onclick="go('s-tpl')"><span>❑</span> القوالب</a>
+<div class="cap">النظام</div>
+<a><span>⚙</span> الإعدادات</a>
+</nav><div class="foot">متجر بخة للمنسوجات<br><span style="color:#565f8a;direction:ltr;display:inline-block">bakha.vexiora.shop</span></div></aside>
+<div class="maincol">
+<div class="ltop"><h1>القوالب</h1><span class="crumb">١٦ قالب — معاينة قبل التطبيق</span><div class="sp"></div><button class="btn btn-o">تصفية: كل الأنشطة ▾</button></div>
+<div class="dbody">
+    
     <div class="tgrid">
       <div class="card tcard"><div class="im" style="background:linear-gradient(135deg,#20291f,#31473a)"></div><div class="mt"><div><b>فاخر</b> <span class="pill g">الحالي</span><br><small>مجوهرات وعطور</small></div><button class="btn btn-g" style="font-size:12px">معاينة</button></div></div>
       <div class="card tcard"><div class="im" style="background:linear-gradient(135deg,#f5e6c8,#e0b36a)"></div><div class="mt"><div><b>دافي</b><br><small>مخبوزات وقهوة</small></div><button class="btn btn-g" style="font-size:12px">معاينة</button></div></div>
@@ -417,6 +468,7 @@ tr:last-child td{border-bottom:0}
     </div>
     <div class="muted" style="margin-top:18px;font-size:12.5px">+ ٨ قوالب أخرى. تغيير القالب مش بيمسح محتواك — الأقسام والنصوص بتفضل زي ما هي.</div>
   </div>
+</div></div>
 </div>
 </div><!-- /frame -->
 <div class="switcher">
