@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vexiora Builder — تصور المحرر الجديد</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#12211B; --grn:#0F7A55; --grn2:#149a6b; --amb:#ECC07A;
+  --paper:#FCFAF5; --sand:#F2EDE2; --card:#fff; --muted:#5f5a49; --line:rgba(15,122,85,.14);
+  --r:16px; --sh:0 18px 50px -24px rgba(18,33,27,.35);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"IBM Plex Sans Arabic",system-ui,sans-serif;background:var(--sand);color:var(--ink);line-height:1.6}
+.artboard{max-width:1440px;margin:48px auto;background:var(--paper);border:1px solid var(--line);border-radius:24px;box-shadow:var(--sh);overflow:hidden}
+.ab-title{max-width:1440px;margin:0 auto 14px;display:flex;align-items:center;gap:14px;padding:0 8px}
+.ab-title .n{width:34px;height:34px;border-radius:10px;background:var(--grn);color:#fff;display:grid;place-items:center;font-weight:700}
+.ab-title h2{font-size:22px}
+.ab-title p{color:var(--muted);font-size:14px}
+.wrap-note{max-width:1440px;margin:60px auto 0;padding:0 8px}
+.topbar{display:flex;align-items:center;gap:12px;background:var(--ink);color:#fff;padding:10px 18px;font-size:13.5px}
+.topbar .save{display:flex;align-items:center;gap:6px;color:#9fe0c4;font-weight:600}
+.topbar .save b{width:8px;height:8px;border-radius:50%;background:#37d99a;display:inline-block}
+.tbtn{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);color:#fff;border-radius:10px;padding:6px 12px;font:inherit;font-size:13px}
+.tbtn.acc{background:var(--grn);border-color:var(--grn);font-weight:600}
+.vpills{display:flex;gap:4px;background:rgba(255,255,255,.06);border-radius:10px;padding:3px}
+.vpills span{padding:4px 12px;border-radius:8px;font-size:12.5px;color:rgba(255,255,255,.6)}
+.vpills span.on{background:rgba(255,255,255,.14);color:#fff}
+.shell{display:grid;grid-template-columns:290px 1fr 320px;min-height:640px}
+.rail{border-inline-end:1px solid var(--line);background:var(--card);padding:14px;overflow:hidden}
+.rail h4{font-size:13px;color:var(--muted);font-weight:600;margin:14px 0 8px;display:flex;justify-content:space-between;align-items:center}
+.rail h4 i{font-style:normal;background:var(--sand);border-radius:99px;padding:1px 8px;font-size:11px;color:var(--grn)}
+.search{background:var(--sand);border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:13px;color:var(--muted)}
+.sgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.scard{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:8px;cursor:pointer;transition:.2s}
+.scard:hover{border-color:var(--grn);box-shadow:0 6px 16px -8px rgba(15,122,85,.35)}
+.scard .th{height:44px;border-radius:8px;margin-bottom:6px}
+.scard b{font-size:11.5px;font-weight:600;display:block}
+.scard small{font-size:10px;color:var(--muted)}
+.th1{background:linear-gradient(135deg,#12211B,#0F7A55)} .th2{background:repeating-linear-gradient(90deg,#F2EDE2 0 8px,#e7dfcd 8px 16px)}
+.th3{background:linear-gradient(90deg,#ECC07A,#f3d9a8)} .th4{background:conic-gradient(#0F7A55,#149a6b,#ECC07A,#0F7A55)}
+.th5{background:radial-gradient(circle at 30% 40%,#149a6b,#12211B)} .th6{background:linear-gradient(#F2EDE2 60%,#0F7A55 60%)}
+.th7{background:repeating-linear-gradient(45deg,#12211B 0 6px,#1e352c 6px 12px)} .th8{background:linear-gradient(135deg,#fff 40%,#ECC07A)}
+.canvas{background:var(--sand);padding:26px;display:flex;flex-direction:column;gap:14px}
+.browser{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:0 10px 30px -18px rgba(18,33,27,.25)}
+.bbar{background:var(--sand);padding:7px 12px;font-size:11px;color:var(--muted);direction:ltr;text-align:left;border-bottom:1px solid var(--line)}
+.page{padding:0;position:relative}
+.sel{outline:2px solid var(--grn);outline-offset:2px;position:relative;border-radius:4px}
+.sel .tag{position:absolute;top:-26px;inset-inline-start:0;background:var(--grn);color:#fff;font-size:11px;padding:3px 10px;border-radius:8px 8px 8px 0;font-weight:600}
+.hero-m{background:linear-gradient(120deg,#12211B 30%,#0F7A55);color:#fff;padding:56px 40px;text-align:center}
+.hero-m h3{font-size:30px;margin-bottom:8px}.hero-m p{opacity:.75;font-size:14px}
+.hero-m .cta{display:inline-block;background:var(--amb);color:var(--ink);border-radius:10px;padding:8px 22px;font-weight:700;font-size:13px;margin-top:14px}
+.prow{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:26px 30px;background:#fff}
+.pcard{border:1px solid var(--line);border-radius:12px;padding:10px;font-size:11px}
+.pcard .im{height:56px;border-radius:8px;background:var(--sand);margin-bottom:6px}
+.toastbar{position:absolute;bottom:14px;inset-inline:0;display:flex;justify-content:center;pointer-events:none}
+.toast{background:var(--ink);color:#fff;font-size:12.5px;padding:9px 18px;border-radius:99px;box-shadow:var(--sh);display:flex;gap:8px;align-items:center}
+.toast b{color:#9fe0c4}
+.insp{background:var(--card);border-inline-start:1px solid var(--line);padding:16px}
+.tabs{display:flex;background:var(--sand);border-radius:10px;padding:3px;margin-bottom:14px}
+.tabs span{flex:1;text-align:center;font-size:12.5px;padding:6px;border-radius:8px;color:var(--muted);font-weight:600}
+.tabs span.on{background:#fff;color:var(--ink);box-shadow:0 2px 8px -2px rgba(18,33,27,.15)}
+.fld{margin-bottom:12px}
+.fld label{font-size:11.5px;color:var(--muted);display:block;margin-bottom:4px;font-weight:600}
+.fld .in{background:var(--paper);border:1px solid var(--line);border-radius:9px;padding:8px 10px;font-size:12.5px}
+.fld .in.focus{border-color:var(--grn);box-shadow:0 0 0 3px rgba(15,122,85,.12)}
+.adv{margin-top:16px;border:1px dashed var(--line);border-radius:10px;padding:10px 12px;font-size:12px;color:var(--muted);display:flex;justify-content:space-between}
+.sw{display:inline-block;width:18px;height:18px;border-radius:5px;vertical-align:middle;margin-inline-end:6px;border:1px solid rgba(0,0,0,.08)}
+.plist{padding:34px 40px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.pg{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;gap:14px;align-items:flex-start}
+.pg .ic{width:42px;height:42px;border-radius:11px;background:rgba(15,122,85,.1);color:var(--grn);display:grid;place-items:center;font-size:19px;font-weight:700;flex-shrink:0}
+.pg b{font-size:14.5px}.pg small{color:var(--muted);font-size:12px;display:block}
+.pg .st{font-size:10.5px;font-weight:700;border-radius:99px;padding:2px 9px;margin-top:6px;display:inline-block}
+.st.ready{background:rgba(15,122,85,.1);color:var(--grn)} .st.draft{background:var(--sand);color:var(--muted)}
+.bpal{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:10px 0}
+.blk{background:#fff;border:1.5px dashed var(--line);border-radius:12px;padding:14px 8px;text-align:center;font-size:12.5px;font-weight:600}
+.blk i{display:grid;place-items:center;width:26px;height:26px;margin:0 auto 6px;font-style:normal;background:rgba(15,122,85,.1);color:var(--grn);border-radius:8px;font-size:13px;font-weight:700}
+.compose{display:grid;grid-template-columns:300px 1fr 300px;gap:0}
+.dropzone{margin:26px;border:2px dashed rgba(15,122,85,.35);border-radius:16px;padding:22px;background:rgba(15,122,85,.03)}
+.dzsec{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:12px;position:relative}
+.dzsec .mv{position:absolute;top:10px;inset-inline-end:10px;color:var(--muted);font-size:12px}
+.dzsec .sel2{outline:2px solid var(--grn);border-radius:8px;padding:6px;outline-offset:1px}
+.addb{text-align:center;color:var(--grn);font-weight:700;font-size:13px;border:1.5px dashed rgba(15,122,85,.4);border-radius:12px;padding:12px;background:#fff}
+.tpl{padding:34px 40px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.tp{border-radius:14px;overflow:hidden;border:1px solid var(--line);background:#fff}
+.tp .im{height:110px}
+.tp .mt{padding:10px 12px;display:flex;justify-content:space-between;align-items:center;font-size:12.5px}
+.tp .mt b{font-size:13px}.tp .mt small{color:var(--muted)}
+.new{position:relative}
+.new::after{content:"جديد";position:absolute;top:8px;inset-inline-start:8px;background:var(--amb);color:var(--ink);font-size:10px;font-weight:700;border-radius:99px;padding:2px 9px}
+header.intro{max-width:1440px;margin:40px auto 8px;padding:0 8px}
+header.intro h1{font-size:34px} header.intro p{color:var(--muted);max-width:720px;font-size:15.5px}
+.badge{display:inline-block;background:var(--ink);color:var(--amb);border-radius:99px;font-size:12px;padding:4px 14px;font-weight:600;margin-bottom:10px}
+</style>
+</head>
+<body>
+
+<header class="intro">
+  <span class="badge">تصور للمراجعة — مش كود نهائي</span>
+  <h1>المحرر الجديد لمتاجر Vexiora</h1>
+  <p>أربع شاشات بتوضح الشكل المقترح: محرر بمكتبة أقسام كبيرة ومرتبة، صفحات أساسية جاهزة، أداة بناء قسم خاص من بلوكات، وقوالب متاجر أكتر وأتنوع. كل حاجة هنا عربي RTL بالكامل وبنفس هوية الموقع الجديدة.</p>
+</header>
+
+<div class="wrap-note"><div class="ab-title"><span class="n">1</span><div><h2>المحرر — مكتبة أقسام دسمة وتحرير واضح</h2><p>كل قسم بينضاف من مكتبة متقسمة صح. اضغط مرتين على أي حاجة تتحرر في مكانها أو تتفتح لوحتها — مفيش ضغطة بتروح في الفاضي.</p></div></div></div>
+<div class="artboard">
+  <div class="topbar">
+    <span class="save"><b></b> تم الحفظ</span>
+    <span class="tbtn">↩ تراجع</span><span class="tbtn">↪ إعادة</span>
+    <span class="vpills"><span class="on">كمبيوتر</span><span>تابلت</span><span>موبايل</span></span>
+    <span style="flex:1"></span>
+    <span class="tbtn">معاينة</span>
+    <span class="tbtn acc">نشر</span>
+  </div>
+  <div class="shell">
+    <aside class="rail">
+      <div class="search">ابحث عن قسم…</div>
+      <h4>واجهات <i>6</i></h4>
+      <div class="sgrid">
+        <div class="scard"><div class="th th1"></div><b>واجهة سينمائية</b><small>صورة + عنوان + زر</small></div>
+        <div class="scard"><div class="th th5"></div><b>واجهة منقسمة</b><small>نص جنب صورة</small></div>
+      </div>
+      <h4>منتجات <i>7</i></h4>
+      <div class="sgrid">
+        <div class="scard"><div class="th th6"></div><b>شبكة منتجات</b><small>2/3/4 أعمدة</small></div>
+        <div class="scard"><div class="th th2"></div><b>منتج مميز</b><small>تفاصيل + سعر</small></div>
+      </div>
+      <h4>ثقة ومجتمع <i>5</i></h4>
+      <div class="sgrid">
+        <div class="scard"><div class="th th3"></div><b>آراء العملاء</b><small>سلايدر متحرك</small></div>
+        <div class="scard"><div class="th th7"></div><b>شعارات شركاء</b><small>شريط متحرك</small></div>
+      </div>
+      <h4>تسويق <i>6</i></h4>
+      <div class="sgrid">
+        <div class="scard"><div class="th th4"></div><b>عدّاد عرض</b><small>عداد تنازلي</small></div>
+        <div class="scard"><div class="th th8"></div><b>نشرة بريدية</b><small>جمع إيميلات</small></div>
+      </div>
+      <h4>محتوى <i>8</i></h4>
+      <div class="sgrid">
+        <div class="scard"><div class="th th2"></div><b>صورة ونص</b><small>قصة البراند</small></div>
+        <div class="scard"><div class="th th1"></div><b>أسئلة شائعة</b><small>أكورديون</small></div>
+      </div>
+    </aside>
+    <main class="canvas">
+      <div class="browser">
+        <div class="bbar">bakha.vexiora.shop — الرئيسية</div>
+        <div class="page">
+          <div class="hero-m sel">
+            <span class="tag">واجهة سينمائية — اضغط مرتين للتحرير</span>
+            <h3>تفاصيل صغيرة. فرق كبير.</h3>
+            <p>اختبارات من أدوات البيت والمطبخ، بروح بخة وألوانها</p>
+            <span class="cta">تسوق الآن</span>
+          </div>
+          <div class="prow">
+            <div class="pcard"><div class="im"></div>علبة حفظ طعام<b style="display:block;color:var(--grn)">120 ج.م</b></div>
+            <div class="pcard"><div class="im"></div>طقم توابل<b style="display:block;color:var(--grn)">240 ج.م</b></div>
+            <div class="pcard"><div class="im"></div>زجاجة زيت<b style="display:block;color:var(--grn)">95 ج.م</b></div>
+            <div class="pcard"><div class="im"></div>سلة تقديم<b style="display:block;color:var(--grn)">310 ج.م</b></div>
+          </div>
+          <div class="toastbar"><div class="toast"><b>✓</b> عدّلت «العنوان» — اتحفظ تلقائيًا، تراجع بـ Ctrl+Z</div></div>
+        </div>
+      </div>
+    </main>
+    <aside class="insp">
+      <div class="tabs"><span class="on">المحتوى</span><span>المظهر</span><span>الحركة</span></div>
+      <div class="fld"><label>العنوان</label><div class="in focus">تفاصيل صغيرة. فرق كبير.</div></div>
+      <div class="fld"><label>النص الفرعي</label><div class="in">اختبارات من أدوات البيت والمطبخ…</div></div>
+      <div class="fld"><label>نص الزر</label><div class="in">تسوق الآن</div></div>
+      <div class="fld"><label>الصورة الخلفية</label><div class="in">hero-bakha.jpg — تغيير الصورة</div></div>
+      <div class="fld"><label>لون الزر</label><div class="in"><span class="sw" style="background:var(--amb)"></span>كهرماني — #ECC07A</div></div>
+      <div class="adv"><span>إعدادات متقدمة (موضع، تجاوب، ربط بيانات)</span><span>‹</span></div>
+    </aside>
+  </div>
+</div>
+
+<div class="wrap-note"><div class="ab-title"><span class="n">2</span><div><h2>صفحات أساسية جاهزة — الصفحات ما تفتحش فاضية تاني</h2><p>أول ما تنشئ متجر أو تضيف صفحة، تختار من صفحات جاهزة بالعربي وتعدل عليها زي أي صفحة.</p></div></div></div>
+<div class="artboard">
+  <div class="topbar"><span class="save"><b></b> الصفحات</span><span style="flex:1"></span><span class="tbtn acc">+ صفحة جديدة</span></div>
+  <div class="plist">
+    <div class="pg"><div class="ic">ر</div><div><b>الرئيسية</b><small>الصفحة الرئيسية للمتجر</small><span class="st ready">منشورة</span></div></div>
+    <div class="pg"><div class="ic">ن</div><div><b>من نحن</b><small>جاهزة: قصة + صورة + أرقام ثقة</small><span class="st ready">جاهزة للتعديل</span></div></div>
+    <div class="pg"><div class="ic">ت</div><div><b>اتصل بنا</b><small>جاهزة: فورم تواصل + بيانات المتجر</small><span class="st ready">جاهزة للتعديل</span></div></div>
+    <div class="pg"><div class="ic">س</div><div><b>سياسة الخصوصية</b><small>نص قانوني مبدئي بالعربي تعدله</small><span class="st draft">مسودة جاهزة</span></div></div>
+    <div class="pg"><div class="ic">ش</div><div><b>الشحن والإرجاع</b><small>نص مبدئي + جدول مناطق الشحن</small><span class="st draft">مسودة جاهزة</span></div></div>
+    <div class="pg"><div class="ic">؟</div><div><b>الأسئلة الشائعة</b><small>أكورديون جاهز تملاه بأسئلتك</small><span class="st ready">جاهزة للتعديل</span></div></div>
+  </div>
+</div>
+
+<div class="wrap-note"><div class="ab-title"><span class="n">3</span><div><h2>ابنِ قسمك بنفسك — من بلوكات جاهزة</h2><p>زي Shopify: التاجر يركّب قسمه من بلوكات (عنوان، صورة، نص، زر، منتجات…) ويعدل كل بلوك لوحده، والقسم يتسجل في مكتبته ويتعاد استخدامه.</p></div></div></div>
+<div class="artboard">
+  <div class="topbar"><span class="save"><b></b> قسم مخصص: «عرض العيد»</span><span style="flex:1"></span><span class="tbtn">حفظ كقسم في مكتبتي</span><span class="tbtn acc">إضافة للصفحة</span></div>
+  <div class="compose">
+    <aside class="rail">
+      <h4>البلوكات</h4>
+      <div class="bpal" style="grid-template-columns:1fr 1fr">
+        <div class="blk"><i>ع</i>عنوان</div><div class="blk"><i>ن</i>نص</div>
+        <div class="blk"><i>ص</i>صورة</div><div class="blk"><i>ز</i>زر</div>
+        <div class="blk"><i>ف</i>فيديو</div><div class="blk"><i>م</i>منتجات</div>
+        <div class="blk"><i>★</i>تقييم</div><div class="blk"><i>#</i>عدّاد</div>
+        <div class="blk"><i>‒</i>مسافة</div><div class="blk"><i>‖</i>أعمدة</div>
+      </div>
+      <h4>قواعد ثابتة</h4>
+      <div style="font-size:12px;color:var(--muted)">المقاسات والخطوط والألوان بتيجي من هوية متجرك تلقائيًا — القسم اللي تبنيه يطلع متناسق مهما ركّبت.</div>
+    </aside>
+    <main class="canvas" style="background:var(--sand)">
+      <div class="dropzone">
+        <div class="dzsec"><span class="mv">⋮⋮ اسحب</span><div class="sel2"><b style="font-size:20px">عرض العيد — خصم ٢٥٪</b><div style="font-size:12px;color:var(--muted)">بلوك: عنوان — اضغط مرتين للتحرير</div></div></div>
+        <div class="dzsec"><span class="mv">⋮⋮ اسحب</span><div style="display:flex;gap:12px;align-items:center"><div style="width:120px;height:70px;border-radius:10px;background:linear-gradient(135deg,#0F7A55,#ECC07A)"></div><div style="font-size:12.5px">بلوك: صورة — بدّلها بصورة عرضك من مكتبة الصور</div></div></div>
+        <div class="dzsec"><span class="mv">⋮⋮ اسحب</span><div style="font-size:12.5px">بلوك: عدّاد تنازلي — <b style="color:var(--grn)">ينتهي خلال 2 يوم : 14 س : 09 د</b></div></div>
+        <div class="dzsec"><span class="mv">⋮⋮ اسحب</span><span style="display:inline-block;background:var(--grn);color:#fff;border-radius:9px;padding:7px 20px;font-size:13px;font-weight:700">تسوق العرض</span> <span style="font-size:12px;color:var(--muted)">بلوك: زر — لونه من هويتك</span></div>
+        <div class="addb">+ أضف بلوك</div>
+      </div>
+    </main>
+    <aside class="insp">
+      <div class="tabs"><span class="on">البلوك</span><span>القسم</span></div>
+      <div class="fld"><label>البلوك المحدد: عنوان</label><div class="in focus">عرض العيد — خصم ٢٥٪</div></div>
+      <div class="fld"><label>الحجم</label><div class="in">كبير ▾</div></div>
+      <div class="fld"><label>المحاذاة</label><div class="in">وسط ▾</div></div>
+      <div class="fld"><label>حركة الظهور</label><div class="in">انزلاق ناعم ▾</div></div>
+      <div class="adv"><span>متقدم (إظهار شرطي، تجاوب)</span><span>‹</span></div>
+    </aside>
+  </div>
+</div>
+
+<div class="wrap-note"><div class="ab-title"><span class="n">4</span><div><h2>قوالب متاجر أكتر وأتنوع — من ٦ لـ ١٦+</h2><p>كل قالب لهوية مختلفة فعلًا (ألوان، خط، إيقاع أقسام، حركة) مش نفس الشكل بلون تاني، وكلها متقسمة حسب نوع النشاط.</p></div></div></div>
+<div class="artboard">
+  <div class="topbar"><span class="save"><b></b> القوالب</span><span style="flex:1"></span><span class="tbtn">تصفية: الكل ▾</span></div>
+  <div class="tpl">
+    <div class="tp"><div class="im th1"></div><div class="mt"><div><b>فاخر</b><br><small>مجوهرات وعطور</small></div><span>معاينة</span></div></div>
+    <div class="tp"><div class="im th3"></div><div class="mt"><div><b>دافي</b><br><small>مخبوزات وقهوة</small></div><span>معاينة</span></div></div>
+    <div class="tp new"><div class="im th5"></div><div class="mt"><div><b>نيون</b><br><small>إلكترونيات وجيمنج</small></div><span>معاينة</span></div></div>
+    <div class="tp new"><div class="im th2"></div><div class="mt"><div><b>ورقي</b><br><small>مكتبات وهاند ميد</small></div><span>معاينة</span></div></div>
+    <div class="tp new"><div class="im th7"></div><div class="mt"><div><b>مونو</b><br><small>أزياء رجالي</small></div><span>معاينة</span></div></div>
+    <div class="tp new"><div class="im th8"></div><div class="mt"><div><b>ناعم</b><br><small>عناية وتجميل</small></div><span>معاينة</span></div></div>
+    <div class="tp new"><div class="im th4"></div><div class="mt"><div><b>حيوي</b><br><small>رياضة وأطفال</small></div><span>معاينة</span></div></div>
+    <div class="tp new"><div class="im th6"></div><div class="mt"><div><b>تراثي</b><br><small>منتجات محلية</small></div><span>معاينة</span></div></div>
+  </div>
+</div>
+
+<footer style="max-width:1440px;margin:40px auto;padding:0 8px 60px;color:var(--muted);font-size:13px">
+  التصور ده للموافقة على الاتجاه بس. التنفيذ هيبدأ بإصلاح اللي موجود (التحرير الصامت، التحقق، الأخطاء) قبل التوسعة، بالترتيب اللي في الخطة.
+</footer>
+
+</body>
+</html>
